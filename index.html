@@ -1,0 +1,2377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tampmail • Ultimate Temp Email & Fake Identity</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- ADS PLACEHOLDER: TOP -->
+    <!-- Google AdSense placeholder - replace with actual ad code -->
+    <div id="ad-top" style="display: block; background: var(--bg-light); margin: 0 auto 1.5rem; padding: 15px; text-align: center; border-radius: 8px; max-width: 1200px; color: var(--text-secondary); font-size: 0.9rem;">
+        <ins style="display: block;">
+            <!-- Ad placeholder will be loaded here -->
+            Ad Space (728x90) - Premium Ads Here
+        </ins>
+    </div>
+    
+    <style>
+        /* Existing CSS remains intact */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary-color: #6366f1; --primary-light: #818cf8; --primary-dark: #4f46e5;
+            --bg-color: #0f172a; --bg-light: #1e293b; --bg-lighter: #334155;
+            --text-color: #f8fafc; --text-secondary: #cbd5e1;
+            --border-color: rgba(255, 255, 255, 0.1);
+            --success-color: #10b981; --warning-color: #f59e0b; --danger-color: #ef4444;
+            --glass-bg: rgba(30, 41, 59, 0.7); --glass-border: rgba(255, 255, 255, 0.1);
+            --shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+        .gmail-ui {
+            --primary-color: #ea4335; --primary-light: #f28b82; --primary-dark: #d93025;
+            --bg-color: #ffffff; --bg-light: #f6f8fc; --bg-lighter: #f1f3f4;
+            --text-color: #202124; --text-secondary: #5f6368;
+            --border-color: rgba(0, 0, 0, 0.1);
+            --success-color: #0b8043; --warning-color: #f6bf26; --danger-color: #d93025;
+            --glass-bg: rgba(255, 255, 255, 0.85); --glass-border: rgba(0, 0, 0, 0.08);
+            --shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 2px 6px rgba(0, 0, 0, 0.05);
+        }
+        
+        /* API HEALTH INDICATORS */
+        .api-health-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 0.75rem;
+            margin-left: 5px;
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success-color);
+        }
+        .api-health-indicator.unhealthy {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--danger-color);
+        }
+        .api-health-indicator.degraded {
+            background: rgba(245, 158, 11, 0.1);
+            color: var(--warning-color);
+        }
+        
+        /* CIRCUIT BREAKER INDICATOR */
+        .circuit-breaker {
+            font-size: 0.75rem;
+            padding: 2px 6px;
+            border-radius: 8px;
+            background: var(--danger-color);
+            color: white;
+            margin-left: 5px;
+            animation: pulse 1.5s infinite;
+        }
+        
+        /* TRAFFIC DISTRIBUTION VISUAL */
+        .traffic-bar {
+            height: 4px;
+            width: 100%;
+            background: var(--bg-lighter);
+            border-radius: 2px;
+            margin-top: 5px;
+            overflow: hidden;
+        }
+        .traffic-segment {
+            height: 100%;
+            display: inline-block;
+            transition: width 0.3s;
+        }
+        
+        /* EMAIL BINDING BADGE */
+        .email-binding-badge {
+            font-size: 0.7rem;
+            padding: 3px 8px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            color: white;
+            margin-left: 8px;
+            font-weight: 600;
+        }
+        
+        /* ADS PLACEHOLDER STYLES */
+        .ad-placeholder {
+            background: var(--bg-light);
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            color: var(--text-secondary);
+            margin: 1.5rem auto;
+            border: 1px dashed var(--border-color);
+        }
+        .ad-placeholder ins {
+            display: block;
+            font-size: 0.9rem;
+        }
+        
+        /* SMART TRAFFIC SYSTEM: CONNECTION QUALITY */
+        .connection-quality {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+        .quality-bar {
+            width: 60px;
+            height: 4px;
+            background: var(--bg-lighter);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+        .quality-fill {
+            height: 100%;
+            background: var(--success-color);
+            border-radius: 2px;
+            transition: width 0.3s;
+        }
+        
+        /* INBOX BINDING: API SESSION INDICATOR */
+        .api-session-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 3px 10px;
+            border-radius: 12px;
+            background: var(--bg-lighter);
+            font-size: 0.75rem;
+            margin-left: 10px;
+        }
+        
+        body { font-family: 'Inter', sans-serif; background-color: var(--bg-color); color: var(--text-color); line-height: 1.6; transition: background-color 0.3s, color 0.3s; min-height: 100vh; overflow-x: hidden; }
+        .glass { background: var(--glass-bg); backdrop-filter: blur(16px) saturate(180%); -webkit-backdrop-filter: blur(16px) saturate(180%); border-radius: 16px; border: 1px solid var(--glass-border); box-shadow: var(--shadow); }
+        header { position: sticky; top: 0; z-index: 100; padding: 1rem 1.5rem; backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid var(--border-color); background: rgba(15, 23, 42, 0.9); }
+        .gmail-ui header { background: rgba(255, 255, 255, 0.9); }
+        .header-container { max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+        .logo { display: flex; align-items: center; gap: 10px; }
+        .logo-icon { width: 40px; height: 40px; background: linear-gradient(135deg, var(--primary-color), var(--primary-light)); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 18px; }
+        .logo-text { font-size: 1.5rem; font-weight: 700; background: linear-gradient(135deg, var(--primary-color), var(--primary-light)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+        .header-controls { display: flex; gap: 15px; align-items: center; }
+        .theme-toggle { display: flex; align-items: center; gap: 8px; padding: 8px 16px; border-radius: 20px; background: var(--bg-lighter); cursor: pointer; user-select: none; transition: all 0.3s; }
+        .theme-toggle:hover { background: var(--bg-light); transform: translateY(-2px); }
+        .toggle-icon { font-size: 18px; color: var(--primary-color); }
+        .toggle-text { font-weight: 500; font-size: 0.9rem; }
+        .app-container { max-width: 1400px; margin: 0 auto; padding: 1.5rem; display: grid; grid-template-columns: 1fr; gap: 1.5rem; }
+        @media (min-width: 992px) { .app-container { grid-template-columns: 1fr 1fr; } .identity-section { grid-column: 1 / -1; } }
+        .panel { padding: 1.5rem; height: 100%; display: flex; flex-direction: column; animation: fadeIn 0.5s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .panel-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border-color); }
+        .panel-title { font-size: 1.25rem; font-weight: 600; display: flex; align-items: center; gap: 10px; }
+        .panel-icon { color: var(--primary-color); }
+        .email-controls { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 1.5rem; }
+        .current-email { padding: 1rem; border-radius: 12px; background: var(--bg-light); margin-bottom: 1.5rem; display: flex; justify-content: space-between; align-items: center; animation: slideIn 0.3s ease-out; }
+        @keyframes slideIn { from { opacity: 0; transform: translateX(-20px); } to { opacity: 1; transform: translateX(0); } }
+        .email-text { font-family: monospace; font-size: 1.1rem; word-break: break-all; }
+        .email-status { display: flex; align-items: center; gap: 8px; font-size: 0.9rem; color: var(--text-secondary); }
+        .status-dot { width: 10px; height: 10px; border-radius: 50%; background-color: var(--success-color); animation: pulse 2s infinite; }
+        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; } }
+        .btn { padding: 10px 20px; border-radius: 10px; border: none; font-family: 'Inter', sans-serif; font-weight: 500; font-size: 0.95rem; cursor: pointer; transition: all 0.3s; display: inline-flex; align-items: center; justify-content: center; gap: 8px; }
+        .btn-primary { background: linear-gradient(135deg, var(--primary-color), var(--primary-light)); color: white; }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(99, 102, 241, 0.3); }
+        .btn-secondary { background: var(--bg-lighter); color: var(--text-color); }
+        .btn-secondary:hover { background: var(--bg-light); transform: translateY(-2px); }
+        .btn-success { background: var(--success-color); color: white; }
+        .btn-danger { background: var(--danger-color); color: white; }
+        .btn-small { padding: 6px 12px; font-size: 0.85rem; }
+        .btn-icon { font-size: 16px; }
+        .inbox-container { flex: 1; overflow-y: auto; max-height: 500px; }
+        .email-list { display: flex; flex-direction: column; gap: 10px; }
+        .email-item { padding: 1rem; border-radius: 12px; background: var(--bg-light); cursor: pointer; transition: all 0.3s; border-left: 4px solid transparent; }
+        .email-item:hover { transform: translateX(5px); background: var(--bg-lighter); }
+        .email-item.unread { border-left-color: var(--primary-color); background: rgba(99, 102, 241, 0.05); }
+        .email-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px; }
+        .email-sender { font-weight: 600; font-size: 0.95rem; }
+        .email-date { font-size: 0.8rem; color: var(--text-secondary); }
+        .email-subject { font-weight: 500; margin-bottom: 5px; font-size: 0.95rem; }
+        .email-preview { font-size: 0.9rem; color: var(--text-secondary); overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+        .email-viewer { flex: 1; overflow-y: auto; padding: 1rem; background: var(--bg-light); border-radius: 12px; }
+        .email-viewer-empty { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; color: var(--text-secondary); text-align: center; padding: 2rem; }
+        .empty-icon { font-size: 3rem; margin-bottom: 1rem; opacity: 0.5; }
+        .email-detail-header { padding-bottom: 1rem; border-bottom: 1px solid var(--border-color); margin-bottom: 1.5rem; }
+        .email-detail-subject { font-size: 1.5rem; font-weight: 600; margin-bottom: 1rem; }
+        .email-detail-info { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
+        .email-detail-sender { font-weight: 600; }
+        .email-detail-date { color: var(--text-secondary); font-size: 0.9rem; }
+        .email-body { line-height: 1.7; margin-bottom: 2rem; }
+        .email-body img { max-width: 100%; height: auto; border-radius: 8px; margin: 1rem 0; }
+        .email-attachments { margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--border-color); }
+        .attachments-title { font-weight: 600; margin-bottom: 1rem; }
+        .attachments-list { display: flex; flex-wrap: wrap; gap: 10px; }
+        .attachment-item { padding: 10px 15px; background: var(--bg-lighter); border-radius: 8px; display: flex; align-items: center; gap: 10px; font-size: 0.9rem; }
+        .identity-container { display: grid; grid-template-columns: 1fr; gap: 1.5rem; }
+        @media (min-width: 768px) { .identity-container { grid-template-columns: 1fr 1fr; } }
+        .identity-card { padding: 1.5rem; display: flex; flex-direction: column; align-items: center; text-align: center; }
+        .identity-photo { width: 120px; height: 120px; border-radius: 50%; object-fit: cover; border: 4px solid var(--primary-color); margin-bottom: 1.5rem; box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2); }
+        .identity-name { font-size: 1.5rem; font-weight: 700; margin-bottom: 0.5rem; }
+        .identity-username { color: var(--primary-color); font-weight: 500; margin-bottom: 1.5rem; background: var(--bg-light); padding: 5px 15px; border-radius: 20px; }
+        .identity-details { width: 100%; display: flex; flex-direction: column; gap: 12px; margin-bottom: 1.5rem; }
+        .identity-detail { display: flex; justify-content: space-between; padding-bottom: 10px; border-bottom: 1px solid var(--border-color); }
+        .detail-label { font-weight: 500; color: var(--text-secondary); }
+        .detail-value { font-weight: 500; text-align: right; word-break: break-word; }
+        .social-profiles { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-top: 1rem; }
+        .social-profile { display: flex; align-items: center; gap: 8px; padding: 8px 16px; background: var(--bg-light); border-radius: 20px; color: var(--text-color); text-decoration: none; font-size: 0.9rem; transition: all 0.3s; }
+        .social-profile:hover { background: var(--bg-lighter); transform: translateY(-2px); }
+        .social-icon { font-size: 16px; }
+        .social-icon.instagram { color: #E4405F; }
+        .social-icon.facebook { color: #1877F2; }
+        .social-icon.twitter { color: #1DA1F2; }
+        .social-icon.youtube { color: #FF0000; }
+        .social-icon.linkedin { color: #0A66C2; }
+        .skeleton { background: linear-gradient(90deg, var(--bg-light) 25%, var(--bg-lighter) 50%, var(--bg-light) 75%); background-size: 200% 100%; animation: loading 1.5s infinite; border-radius: 8px; }
+        @keyframes loading { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+        .skeleton-text { height: 1rem; margin-bottom: 0.5rem; }
+        .skeleton-avatar { width: 120px; height: 120px; border-radius: 50%; margin-bottom: 1.5rem; }
+        .copy-feedback { position: fixed; bottom: 20px; right: 20px; padding: 12px 24px; background: var(--success-color); color: white; border-radius: 10px; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); z-index: 1000; animation: slideUp 0.3s ease-out; display: flex; align-items: center; gap: 10px; }
+        @keyframes slideUp { from { transform: translateY(100px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        footer { text-align: center; padding: 2rem 1rem; color: var(--text-secondary); font-size: 0.9rem; border-top: 1px solid var(--border-color); margin-top: 2rem; }
+        .api-status { display: inline-flex; align-items: center; gap: 8px; padding: 6px 12px; background: var(--bg-light); border-radius: 20px; margin-top: 1rem; }
+        .status-indicator { width: 8px; height: 8px; border-radius: 50%; background-color: var(--success-color); }
+        @media (max-width: 768px) {
+            .header-container { flex-direction: column; gap: 1rem; }
+            .email-controls { justify-content: center; }
+            .current-email { flex-direction: column; gap: 1rem; text-align: center; }
+            .panel { padding: 1rem; }
+        }
+        .hidden { display: none !important; }
+        .mt-1 { margin-top: 0.5rem; } .mt-2 { margin-top: 1rem; } .mt-3 { margin-top: 1.5rem; }
+        .mb-1 { margin-bottom: 0.5rem; } .mb-2 { margin-bottom: 1rem; } .mb-3 { margin-bottom: 1.5rem; }
+        .api-source-badge {
+            font-size: 0.7rem;
+            padding: 3px 8px;
+            border-radius: 10px;
+            background: var(--primary-dark);
+            color: white;
+            margin-left: 8px;
+            font-weight: 600;
+        }
+        .otp-highlight {
+            background: linear-gradient(135deg, var(--success-color), var(--primary-light));
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-family: monospace;
+            font-size: 1.1rem;
+            margin: 0 4px;
+            animation: pulse 1.5s infinite;
+        }
+        .email-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
+        }
+        .connection-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            margin-left: 10px;
+        }
+        .connection-status.online { background: rgba(16, 185, 129, 0.2); color: var(--success-color); }
+        .connection-status.offline { background: rgba(239, 68, 68, 0.2); color: var(--danger-color); }
+        .retry-button {
+            padding: 4px 10px;
+            font-size: 0.8rem;
+            margin-left: 10px;
+        }
+        .email-filters {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        .filter-btn {
+            padding: 6px 15px;
+            background: var(--bg-lighter);
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.3s;
+        }
+        .filter-btn.active {
+            background: var(--primary-color);
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <!-- ADS PLACEHOLDER: TOP -->
+    <div class="ad-placeholder" id="adTop">
+        <ins>
+            <!-- Ad placeholder will be loaded here -->
+            Ad Space (728x90) - Premium Ads Here
+        </ins>
+    </div>
+
+    <header class="glass">
+        <div class="header-container">
+            <div class="logo">
+                <div class="logo-icon">📧</div>
+                <div class="logo-text">tampmail</div>
+            </div>
+            <div class="header-controls">
+                <div class="theme-toggle" id="themeToggle">
+                    <div class="toggle-icon">
+                        <i class="fas fa-envelope" id="themeIcon"></i>
+                    </div>
+                    <div class="toggle-text" id="themeText">Gmail UI</div>
+                </div>
+                <button class="btn btn-primary" id="generateIdentityBtn">
+                    <i class="fas fa-user-plus btn-icon"></i>
+                    <span>New Identity</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="app-container">
+        <!-- ADS PLACEHOLDER: MIDDLE -->
+        <div class="ad-placeholder" id="adMiddle" style="grid-column: 1 / -1;">
+            <ins>
+                <!-- Ad placeholder will be loaded here -->
+                Ad Space (300x250) - Premium Ads Here
+            </ins>
+        </div>
+
+        <section class="panel glass">
+            <div class="panel-header">
+                <div class="panel-title">
+                    <i class="fas fa-inbox panel-icon"></i>
+                    <span>Temp Mail Inbox</span>
+                    <div id="connectionStatus" class="connection-status online">
+                        <i class="fas fa-circle"></i>
+                        <span>Connected</span>
+                    </div>
+                    <!-- SMART TRAFFIC SYSTEM: API HEALTH INDICATOR -->
+                    <div id="apiHealthIndicator" class="api-health-indicator hidden">
+                        <i class="fas fa-heartbeat"></i>
+                        <span>Healthy</span>
+                    </div>
+                </div>
+                <div class="email-status">
+                    <div class="status-dot"></div>
+                    <span id="emailStatus">Ready</span>
+                </div>
+            </div>
+            
+            <!-- SMART TRAFFIC SYSTEM: TRAFFIC DISTRIBUTION VISUAL -->
+            <div class="traffic-bar hidden" id="trafficDistributionBar">
+                <div class="traffic-segment" style="width: 33%; background: #10b981;"></div>
+                <div class="traffic-segment" style="width: 33%; background: #f59e0b;"></div>
+                <div class="traffic-segment" style="width: 34%; background: #6366f1;"></div>
+            </div>
+            
+            <div class="email-filters">
+                <div class="filter-btn active" data-filter="all">All</div>
+                <div class="filter-btn" data-filter="unread">Unread</div>
+                <div class="filter-btn" data-filter="otp">OTP</div>
+            </div>
+            <div class="email-controls">
+                <button class="btn btn-primary" id="generateEmailBtn">
+                    <i class="fas fa-plus btn-icon"></i>
+                    <span>Generate Email</span>
+                </button>
+                <button class="btn btn-secondary" id="copyEmailBtn">
+                    <i class="fas fa-copy btn-icon"></i>
+                    <span>Copy Email</span>
+                </button>
+                <button class="btn btn-secondary" id="refreshInboxBtn">
+                    <i class="fas fa-sync-alt btn-icon"></i>
+                    <span>Refresh</span>
+                </button>
+                <button class="btn btn-danger" id="deleteInboxBtn">
+                    <i class="fas fa-trash btn-icon"></i>
+                    <span>Delete Inbox</span>
+                </button>
+            </div>
+            <div class="current-email glass" id="currentEmailContainer" style="display: none;">
+                <div>
+                    <div class="email-text" id="currentEmail"></div>
+                    <div class="mt-1" id="emailCreated"></div>
+                    <!-- INBOX BINDING: API SESSION BADGE -->
+                    <div class="api-session-badge hidden" id="apiSessionBadge">
+                        <i class="fas fa-link"></i>
+                        <span id="boundApiName">API-A</span>
+                    </div>
+                </div>
+                <div>
+                    <div class="email-status">
+                        <div class="status-dot"></div>
+                        <span>Active</span>
+                    </div>
+                </div>
+            </div>
+            <div class="inbox-container">
+                <div class="email-list" id="inboxList">
+                    <div class="email-viewer-empty">
+                        <i class="fas fa-inbox empty-icon"></i>
+                        <h3>No email address generated yet</h3>
+                        <p class="mt-1">Click "Generate Email" to create a temporary email address and start receiving emails.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="panel glass">
+            <div class="panel-header">
+                <div class="panel-title">
+                    <i class="fas fa-eye panel-icon"></i>
+                    <span>Email Viewer</span>
+                </div>
+                <div>
+                    <button class="btn btn-secondary btn-small" id="copyOTPBtn" style="display: none;">
+                        <i class="fas fa-key btn-icon"></i>
+                        <span>Copy OTP</span>
+                    </button>
+                    <button class="btn btn-secondary btn-small" id="saveEmailBtn" style="display: none; margin-left: 8px;">
+                        <i class="fas fa-save btn-icon"></i>
+                        <span>Save Email</span>
+                    </button>
+                    <button class="btn btn-secondary btn-small" id="markUnreadBtn" style="display: none; margin-left: 8px;">
+                        <i class="fas fa-envelope btn-icon"></i>
+                        <span>Mark Unread</span>
+                    </button>
+                </div>
+            </div>
+            <div class="email-viewer" id="emailViewer">
+                <div class="email-viewer-empty">
+                    <i class="fas fa-envelope-open-text empty-icon"></i>
+                    <h3>No email selected</h3>
+                    <p class="mt-1">Select an email from the inbox to view its contents here.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="panel glass identity-section">
+            <div class="panel-header">
+                <div class="panel-title">
+                    <i class="fas fa-id-card panel-icon"></i>
+                    <span>Fake Identity Generator</span>
+                </div>
+                <button class="btn btn-primary" id="copyIdentityBtn">
+                    <i class="fas fa-copy btn-icon"></i>
+                    <span>Copy All Details</span>
+                </button>
+            </div>
+            <div class="identity-container">
+                <div class="identity-card glass">
+                    <div id="identityPhotoContainer">
+                        <img src="https://randomuser.me/api/portraits/med/men/75.jpg" alt="Profile" class="identity-photo" id="identityPhoto">
+                    </div>
+                    <div class="identity-name" id="identityName">Loading...</div>
+                    <div class="identity-username" id="identityUsername">@username</div>
+                    <div class="identity-details">
+                        <div class="identity-detail">
+                            <span class="detail-label">Email:</span>
+                            <span class="detail-value" id="identityEmail">Loading...</span>
+                        </div>
+                        <div class="identity-detail">
+                            <span class="detail-label">Phone:</span>
+                            <span class="detail-value" id="identityPhone">Loading...</span>
+                        </div>
+                        <div class="identity-detail">
+                            <span class="detail-label">Age/Gender:</span>
+                            <span class="detail-value" id="identityAgeGender">Loading...</span>
+                        </div>
+                        <div class="identity-detail">
+                            <span class="detail-label">Location:</span>
+                            <span class="detail-value" id="identityLocation">Loading...</span>
+                        </div>
+                        <div class="identity-detail">
+                            <span class="detail-label">Password:</span>
+                            <span class="detail-value" id="identityPassword">Loading...</span>
+                        </div>
+                    </div>
+                    <div class="social-profiles" id="socialProfiles"></div>
+                </div>
+                <div class="panel glass">
+                    <div class="panel-header">
+                        <div class="panel-title">
+                            <i class="fas fa-info-circle panel-icon"></i>
+                            <span>Additional Details</span>
+                        </div>
+                    </div>
+                    <div class="identity-details mt-2">
+                        <div class="identity-detail">
+                            <span class="detail-label">Date of Birth:</span>
+                            <span class="detail-value" id="identityDob">Loading...</span>
+                        </div>
+                        <div class="identity-detail">
+                            <span class="detail-label">Nationality:</span>
+                            <span class="detail-value" id="identityNationality">Loading...</span>
+                        </div>
+                        <div class="identity-detail">
+                            <span class="detail-label">Street Address:</span>
+                            <span class="detail-value" id="identityStreet">Loading...</span>
+                        </div>
+                        <div class="identity-detail">
+                            <span class="detail-label">City/State:</span>
+                            <span class="detail-value" id="identityCityState">Loading...</span>
+                        </div>
+                        <div class="identity-detail">
+                            <span class="detail-label">Postal Code:</span>
+                            <span class="detail-value" id="identityPostcode">Loading...</span>
+                        </div>
+                        <div class="identity-detail">
+                            <span class="detail-label">Registration Date:</span>
+                            <span class="detail-value" id="identityRegistered">Loading...</span>
+                        </div>
+                    </div>
+                    <div class="mt-3">
+                        <div class="panel-title mb-2">
+                            <i class="fas fa-shield-alt panel-icon"></i>
+                            <span>Security Info</span>
+                        </div>
+                        <div class="identity-details">
+                            <div class="identity-detail">
+                                <span class="detail-label">UUID:</span>
+                                <span class="detail-value" id="identityUuid">Loading...</span>
+                            </div>
+                            <div class="identity-detail">
+                                <span class="detail-label">ID Number:</span>
+                                <span class="detail-value" id="identityId">Loading...</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- ADS PLACEHOLDER: BOTTOM -->
+    <div class="ad-placeholder" id="adBottom" style="margin-top: 2rem;">
+        <ins>
+            <!-- Ad placeholder will be loaded here -->
+            Ad Space (728x90) - Premium Ads Here
+        </ins>
+    </div>
+
+    <footer>
+        <p>tampmail • Temporary Email & Fake Identity Generator</p>
+        <p>Working Inbox with GuerrillaMail API • 100% Free • Receives Real Emails & OTPs</p>
+        <div class="api-status mt-2">
+            <div class="status-indicator"></div>
+            <span id="apiStatusText">API: GuerrillaMail • Auto-refresh: On (30s)</span>
+        </div>
+        <!-- SMART TRAFFIC SYSTEM: CONNECTION QUALITY -->
+        <div class="connection-quality mt-1">
+            <span>Connection Quality:</span>
+            <div class="quality-bar">
+                <div class="quality-fill" id="connectionQuality" style="width: 95%"></div>
+            </div>
+            <span id="connectionQualityText">95%</span>
+        </div>
+    </footer>
+
+    <div class="copy-feedback hidden" id="copyFeedback">
+        <i class="fas fa-check"></i>
+        <span id="copyMessage">Copied to clipboard!</span>
+    </div>
+
+    <script>
+        // =================================================================
+        // SMART TRAFFIC DISTRIBUTION SYSTEM - API FAILOVER
+        // =================================================================
+        // Added: Complete smart traffic distribution with health checks,
+        // circuit breakers, and automatic failover
+        // =================================================================
+        
+        class SmartTrafficSystem {
+            constructor() {
+                this.apis = [
+                    {
+                        id: 'api-1',
+                        name: 'GuerrillaMail',
+                        baseUrl: 'https://api.guerrillamail.com/ajax.php',
+                        health: 100, // 0-100%
+                        responseTime: 0,
+                        errorRate: 0,
+                        requests: 0,
+                        errors: 0,
+                        lastCheck: 0,
+                        circuitState: 'CLOSED', // CLOSED, OPEN, HALF_OPEN
+                        circuitFailures: 0,
+                        lastFailure: 0,
+                        rateLimitRemaining: 100,
+                        maxRequestsPerMinute: 100,
+                        isActive: true
+                    },
+                    {
+                        id: 'api-2',
+                        name: 'Mail.tm',
+                        baseUrl: 'https://api.mail.tm',
+                        health: 0,
+                        responseTime: 0,
+                        errorRate: 0,
+                        requests: 0,
+                        errors: 0,
+                        lastCheck: 0,
+                        circuitState: 'CLOSED',
+                        circuitFailures: 0,
+                        lastFailure: 0,
+                        rateLimitRemaining: 100,
+                        maxRequestsPerMinute: 50,
+                        isActive: false // Currently not active
+                    },
+                    {
+                        id: 'api-3',
+                        name: 'TempMail.io',
+                        baseUrl: 'https://api.temp-mail.io',
+                        health: 0,
+                        responseTime: 0,
+                        errorRate: 0,
+                        requests: 0,
+                        errors: 0,
+                        lastCheck: 0,
+                        circuitState: 'CLOSED',
+                        circuitFailures: 0,
+                        lastFailure: 0,
+                        rateLimitRemaining: 100,
+                        maxRequestsPerMinute: 30,
+                        isActive: false // Currently not active
+                    }
+                ];
+                
+                this.activeApi = this.apis[0];
+                this.healthCheckInterval = null;
+                this.maxRetries = 3;
+                this.logs = [];
+                this.sessionBindings = {}; // email -> api mapping
+            }
+            
+            // Initialize the smart traffic system
+            init() {
+                this.startHealthChecks();
+                this.loadSessionBindings();
+                console.log('Smart Traffic System: Initialized');
+            }
+            
+            // Start periodic health checks
+            startHealthChecks() {
+                // Only check active APIs
+                const activeApis = this.apis.filter(api => api.isActive);
+                
+                this.healthCheckInterval = setInterval(() => {
+                    this.checkAllApisHealth();
+                    this.updateTrafficDistribution();
+                }, 30000); // Every 30 seconds
+                
+                // Initial check
+                this.checkAllApisHealth();
+            }
+            
+            // Health check for all APIs
+            async checkAllApisHealth() {
+                for (const api of this.apis.filter(a => a.isActive)) {
+                    await this.checkApiHealth(api);
+                }
+                this.updateHealthIndicator();
+            }
+            
+            // Check individual API health
+            async checkApiHealth(api) {
+                if (!api.isActive) return;
+                
+                try {
+                    const startTime = Date.now();
+                    const controller = new AbortController();
+                    const timeoutId = setTimeout(() => controller.abort(), 5000);
+                    
+                    let testUrl;
+                    if (api.id === 'api-1') {
+                        testUrl = `${api.baseUrl}?f=get_email_address&lang=en`;
+                    } else {
+                        // For other APIs, we'll use a simple endpoint check
+                        testUrl = api.baseUrl;
+                    }
+                    
+                    const response = await fetch(testUrl, {
+                        signal: controller.signal,
+                        mode: 'cors',
+                        headers: { 'Accept': 'application/json' }
+                    }).catch(() => null);
+                    
+                    clearTimeout(timeoutId);
+                    
+                    const responseTime = Date.now() - startTime;
+                    
+                    if (response && response.ok) {
+                        api.health = Math.min(100, api.health + 10);
+                        api.responseTime = responseTime;
+                        api.lastCheck = Date.now();
+                        api.circuitState = 'CLOSED';
+                        api.circuitFailures = 0;
+                        
+                        this.log(`API Health: ${api.name} is healthy (${responseTime}ms)`);
+                    } else {
+                        api.health = Math.max(0, api.health - 20);
+                        api.errors++;
+                        api.circuitFailures++;
+                        
+                        if (api.circuitFailures >= 3) {
+                            api.circuitState = 'OPEN';
+                            api.lastFailure = Date.now();
+                            this.log(`Circuit Breaker: ${api.name} is OPEN (too many failures)`);
+                        }
+                        
+                        this.log(`API Health: ${api.name} failed (${responseTime}ms)`);
+                    }
+                    
+                    api.requests++;
+                    api.errorRate = (api.errors / api.requests) * 100;
+                    
+                } catch (error) {
+                    api.health = Math.max(0, api.health - 30);
+                    api.errors++;
+                    api.circuitFailures++;
+                    api.lastCheck = Date.now();
+                    this.log(`API Health: ${api.name} error - ${error.message}`);
+                }
+            }
+            
+            // Select the best API based on health metrics
+            selectBestApi() {
+                const healthyApis = this.apis.filter(api => 
+                    api.isActive &&
+                    api.circuitState === 'CLOSED' && 
+                    api.health > 50
+                );
+                
+                if (healthyApis.length === 0) {
+                    // All APIs down, reset circuits and try again
+                    this.resetAllCircuits();
+                    return this.apis.find(api => api.isActive) || this.apis[0];
+                }
+                
+                // Score based on health, response time, and error rate
+                const scoredApis = healthyApis.map(api => ({
+                    api,
+                    score: (api.health * 0.5) + 
+                           ((1000 - Math.min(api.responseTime, 1000)) * 0.3) + 
+                           ((100 - api.errorRate) * 0.2)
+                }));
+                
+                scoredApis.sort((a, b) => b.score - a.score);
+                
+                const selectedApi = scoredApis[0].api;
+                this.activeApi = selectedApi;
+                
+                this.log(`Traffic Distribution: Selected ${selectedApi.name} (Score: ${scoredApis[0].score.toFixed(1)})`);
+                
+                return selectedApi;
+            }
+            
+            // Execute request with automatic failover
+            async executeRequest(requestFn, options = {}) {
+                const maxRetries = options.maxRetries || this.maxRetries;
+                const initialApi = options.preferredApi || this.selectBestApi();
+                let lastError = null;
+                
+                // INBOX BINDING: Check if we have a session binding for this email
+                if (options.emailAddress && this.sessionBindings[options.emailAddress]) {
+                    const boundApiId = this.sessionBindings[options.emailAddress];
+                    const boundApi = this.apis.find(api => api.id === boundApiId);
+                    if (boundApi && boundApi.circuitState === 'CLOSED' && boundApi.health > 30) {
+                        this.activeApi = boundApi;
+                        this.log(`Inbox Binding: Using bound API ${boundApi.name} for email ${options.emailAddress}`);
+                    }
+                }
+                
+                for (let attempt = 0; attempt < maxRetries; attempt++) {
+                    const api = attempt === 0 ? this.activeApi : this.selectBestApi();
+                    
+                    // Skip if API circuit is open (except for first attempt with preferred API)
+                    if (api.circuitState === 'OPEN' && attempt > 0) {
+                        const timeSinceFailure = Date.now() - api.lastFailure;
+                        if (timeSinceFailure < 60000) { // 60 second cooldown
+                            continue;
+                        }
+                        api.circuitState = 'HALF_OPEN';
+                    }
+                    
+                    try {
+                        const result = await requestFn(api);
+                        
+                        // Request successful
+                        api.health = Math.min(100, api.health + 5);
+                        
+                        if (options.emailAddress) {
+                            this.bindEmailToApi(options.emailAddress, api.id);
+                        }
+                        
+                        return result;
+                        
+                    } catch (error) {
+                        lastError = error;
+                        api.health = Math.max(0, api.health - 15);
+                        api.errors++;
+                        api.circuitFailures++;
+                        
+                        this.log(`API Failover: Attempt ${attempt + 1} failed on ${api.name} - ${error.message}`);
+                        
+                        // Open circuit if too many failures
+                        if (api.circuitFailures >= 3) {
+                            api.circuitState = 'OPEN';
+                            api.lastFailure = Date.now();
+                        }
+                        
+                        // Wait before retry (exponential backoff)
+                        if (attempt < maxRetries - 1) {
+                            await new Promise(resolve => 
+                                setTimeout(resolve, Math.pow(2, attempt) * 1000)
+                            );
+                        }
+                    }
+                }
+                
+                // All attempts failed
+                this.log(`API Failover: All ${maxRetries} attempts failed`);
+                throw lastError || new Error('All API attempts failed');
+            }
+            
+            // INBOX BINDING: Bind email to specific API
+            bindEmailToApi(emailAddress, apiId) {
+                this.sessionBindings[emailAddress] = apiId;
+                localStorage.setItem(`tampmail_api_binding_${btoa(emailAddress)}`, apiId);
+                this.log(`Inbox Binding: Email ${emailAddress} bound to API ${apiId}`);
+            }
+            
+            // INBOX BINDING: Get bound API for email
+            getBoundApiForEmail(emailAddress) {
+                const boundApiId = this.sessionBindings[emailAddress] || 
+                                 localStorage.getItem(`tampmail_api_binding_${btoa(emailAddress)}`);
+                
+                if (boundApiId) {
+                    return this.apis.find(api => api.id === boundApiId);
+                }
+                return null;
+            }
+            
+            // Load session bindings from storage
+            loadSessionBindings() {
+                try {
+                    for (let i = 0; i < localStorage.length; i++) {
+                        const key = localStorage.key(i);
+                        if (key.startsWith('tampmail_api_binding_')) {
+                            const email = atob(key.replace('tampmail_api_binding_', ''));
+                            const apiId = localStorage.getItem(key);
+                            this.sessionBindings[email] = apiId;
+                        }
+                    }
+                    console.log('Smart Traffic System: Loaded session bindings');
+                } catch (error) {
+                    console.error('Smart Traffic System: Failed to load session bindings', error);
+                }
+            }
+            
+            // Reset all circuit breakers
+            resetAllCircuits() {
+                this.apis.forEach(api => {
+                    api.circuitState = 'CLOSED';
+                    api.circuitFailures = 0;
+                });
+                this.log('Circuit Breaker: All circuits reset');
+            }
+            
+            // Update UI with health indicators
+            updateHealthIndicator() {
+                const healthIndicator = document.getElementById('apiHealthIndicator');
+                const trafficBar = document.getElementById('trafficDistributionBar');
+                
+                if (!healthIndicator || !trafficBar) return;
+                
+                // Calculate overall health
+                const activeApis = this.apis.filter(api => api.isActive);
+                const healthyApis = activeApis.filter(api => api.health > 60).length;
+                const totalApis = activeApis.length;
+                const overallHealth = totalApis > 0 ? (healthyApis / totalApis) * 100 : 0;
+                
+                // Update health indicator
+                healthIndicator.classList.remove('hidden', 'unhealthy', 'degraded');
+                healthIndicator.innerHTML = `<i class="fas fa-heartbeat"></i><span>${Math.round(overallHealth)}% Healthy</span>`;
+                
+                if (overallHealth > 80) {
+                    healthIndicator.classList.remove('unhealthy', 'degraded');
+                } else if (overallHealth > 40) {
+                    healthIndicator.classList.add('degraded');
+                } else {
+                    healthIndicator.classList.add('unhealthy');
+                }
+                
+                // Update traffic distribution visualization
+                trafficBar.classList.remove('hidden');
+                const segments = trafficBar.querySelectorAll('.traffic-segment');
+                
+                // Only show active APIs
+                const activeApiCount = activeApis.length;
+                activeApis.forEach((api, index) => {
+                    if (segments[index]) {
+                        const width = Math.max(10, (api.health / 100) * (100 / activeApiCount));
+                        segments[index].style.width = `${width}%`;
+                        
+                        if (api.health > 70) {
+                            segments[index].style.background = 'var(--success-color)';
+                        } else if (api.health > 30) {
+                            segments[index].style.background = 'var(--warning-color)';
+                        } else {
+                            segments[index].style.background = 'var(--danger-color)';
+                        }
+                    }
+                });
+                
+                // Hide unused segments
+                for (let i = activeApiCount; i < segments.length; i++) {
+                    segments[i].style.width = '0%';
+                }
+                
+                // Update connection quality
+                const qualityElement = document.getElementById('connectionQuality');
+                const qualityText = document.getElementById('connectionQualityText');
+                if (qualityElement && qualityText) {
+                    qualityElement.style.width = `${overallHealth}%`;
+                    qualityText.textContent = `${Math.round(overallHealth)}%`;
+                }
+            }
+            
+            // Log with silent error handling
+            log(message, level = 'info') {
+                const timestamp = new Date().toISOString();
+                const logEntry = { timestamp, message, level };
+                this.logs.push(logEntry);
+                
+                // Keep logs limited
+                if (this.logs.length > 100) {
+                    this.logs.shift();
+                }
+                
+                // Only show errors in console, not spam
+                if (level === 'error') {
+                    console.error(`[SmartTraffic] ${message}`);
+                } else if (level === 'warn') {
+                    console.warn(`[SmartTraffic] ${message}`);
+                } else {
+                    console.log(`[SmartTraffic] ${message}`);
+                }
+            }
+            
+            // Update traffic distribution based on API health
+            updateTrafficDistribution() {
+                const activeApis = this.apis.filter(api => api.isActive);
+                const totalHealth = activeApis.reduce((sum, api) => sum + api.health, 0);
+                
+                if (totalHealth === 0) return;
+                
+                activeApis.forEach(api => {
+                    api.trafficWeight = (api.health / totalHealth) * 100;
+                });
+                
+                this.log('Traffic Distribution Updated');
+            }
+            
+            // Get API status for display
+            getApiStatus() {
+                return this.apis.map(api => ({
+                    name: api.name,
+                    health: api.health,
+                    state: api.circuitState,
+                    responseTime: api.responseTime,
+                    requests: api.requests,
+                    isActive: api.isActive
+                }));
+            }
+            
+            // Cleanup
+            destroy() {
+                if (this.healthCheckInterval) {
+                    clearInterval(this.healthCheckInterval);
+                }
+            }
+        }
+
+        // =================================================================
+        // INBOX BINDING SYSTEM
+        // =================================================================
+        // Added: Ensures email ↔ API binding consistency
+        // Critical: Prevents OTPs from appearing in wrong API inbox
+        // =================================================================
+        
+        class InboxBindingSystem {
+            constructor() {
+                this.emailApiMap = new Map(); // email -> apiId
+                this.apiSessions = new Map(); // apiId -> session data
+                this.pollingIntervals = new Map();
+                this.init();
+            }
+            
+            // Initialize the binding system
+            init() {
+                this.loadBindings();
+                console.log('Inbox Binding System: Initialized');
+            }
+            
+            // Load bindings from localStorage
+            loadBindings() {
+                try {
+                    for (let i = 0; i < localStorage.length; i++) {
+                        const key = localStorage.key(i);
+                        if (key.startsWith('tampmail_binding_')) {
+                            const email = atob(key.replace('tampmail_binding_', ''));
+                            const stored = localStorage.getItem(key);
+                            if (stored) {
+                                try {
+                                    const data = JSON.parse(stored);
+                                    this.emailApiMap.set(email, data.apiId);
+                                    this.apiSessions.set(data.apiId, data.sessionData);
+                                } catch (error) {
+                                    console.error('Inbox Binding: Failed to parse stored binding', error);
+                                }
+                            }
+                        }
+                    }
+                } catch (error) {
+                    console.error('Inbox Binding: Failed to load bindings', error);
+                }
+            }
+            
+            // Bind email to API session
+            bindEmailToApi(email, apiId, sessionData) {
+                this.emailApiMap.set(email, apiId);
+                this.apiSessions.set(apiId, sessionData);
+                
+                // Store in localStorage for persistence
+                localStorage.setItem(`tampmail_binding_${btoa(email)}`, JSON.stringify({
+                    apiId,
+                    sessionData,
+                    timestamp: Date.now()
+                }));
+                
+                console.log(`Inbox Binding: Email ${email} bound to API ${apiId}`);
+            }
+            
+            // Get bound API for email
+            getBoundApi(email) {
+                // First check memory
+                if (this.emailApiMap.has(email)) {
+                    const apiId = this.emailApiMap.get(email);
+                    const sessionData = this.apiSessions.get(apiId);
+                    return {
+                        apiId,
+                        sessionData: sessionData || { email }
+                    };
+                }
+                
+                // Then check localStorage
+                const stored = localStorage.getItem(`tampmail_binding_${btoa(email)}`);
+                if (stored) {
+                    try {
+                        const data = JSON.parse(stored);
+                        this.emailApiMap.set(email, data.apiId);
+                        this.apiSessions.set(data.apiId, data.sessionData);
+                        return data;
+                    } catch (error) {
+                        console.error('Inbox Binding: Failed to parse stored binding', error);
+                    }
+                }
+                
+                // If no binding exists, create a default one for existing emails
+                if (email && email.includes('@guerrillamail')) {
+                    const defaultApiId = 'api-1'; // Default to GuerrillaMail
+                    const sessionData = {
+                        email_addr: email,
+                        sid_token: localStorage.getItem('tampmail_token') || `default_${Date.now()}`
+                    };
+                    
+                    this.bindEmailToApi(email, defaultApiId, sessionData);
+                    console.log(`Inbox Binding: Created default binding for ${email} to API ${defaultApiId}`);
+                    
+                    return {
+                        apiId: defaultApiId,
+                        sessionData
+                    };
+                }
+                
+                return null;
+            }
+            
+            // Start polling for bound inbox
+            startPolling(email, callback, interval = 30000) {
+                this.stopPolling(email);
+                
+                const boundData = this.getBoundApi(email);
+                if (!boundData) {
+                    console.log('Inbox Binding: No binding found, will create on next inbox load');
+                    return;
+                }
+                
+                const pollFunction = async () => {
+                    try {
+                        await callback(boundData);
+                    } catch (error) {
+                        console.error('Inbox Binding: Polling error', error);
+                    }
+                };
+                
+                // Initial poll
+                pollFunction();
+                
+                // Start interval
+                const intervalId = setInterval(pollFunction, interval);
+                this.pollingIntervals.set(email, intervalId);
+                
+                console.log(`Inbox Binding: Started polling for ${email}`);
+            }
+            
+            // Stop polling for email
+            stopPolling(email) {
+                const intervalId = this.pollingIntervals.get(email);
+                if (intervalId) {
+                    clearInterval(intervalId);
+                    this.pollingIntervals.delete(email);
+                    console.log(`Inbox Binding: Stopped polling for ${email}`);
+                }
+            }
+            
+            // Cleanup all bindings (on logout/inbox delete)
+            cleanup(email) {
+                this.stopPolling(email);
+                this.emailApiMap.delete(email);
+                
+                // Remove from localStorage
+                localStorage.removeItem(`tampmail_binding_${btoa(email)}`);
+                localStorage.removeItem(`tampmail_api_binding_${btoa(email)}`);
+                
+                console.log(`Inbox Binding: Cleaned up bindings for ${email}`);
+            }
+            
+            // Verify binding consistency
+            verifyBinding(email, apiId) {
+                const boundData = this.getBoundApi(email);
+                if (!boundData) return true; // No binding yet, will be created
+                
+                if (boundData.apiId !== apiId) {
+                    console.warn(`Inbox Binding Mismatch: Email ${email} is bound to ${boundData.apiId}, not ${apiId}`);
+                    return false;
+                }
+                
+                return true;
+            }
+        }
+
+        // =================================================================
+        // APPLICATION STATE (MODIFIED FOR SMART TRAFFIC)
+        // =================================================================
+        const state = {
+            currentEmail: null,
+            inbox: [],
+            currentEmailData: null,
+            fakeIdentity: null,
+            isGmailUI: false,
+            autoRefreshInterval: null,
+            selectedEmailId: null,
+            activeApi: 'guerrillamail',
+            emailAddress: null,
+            emailToken: null,
+            connectionStatus: 'online',
+            activeFilter: 'all',
+            retryCount: 0,
+            // SMART TRAFFIC SYSTEM: Added traffic system state
+            trafficSystem: null,
+            inboxBinding: null,
+            boundApiId: null,
+            apiHealth: 100
+        };
+
+        // =================================================================
+        // INITIALIZE SMART TRAFFIC SYSTEM
+        // =================================================================
+        function initSmartTrafficSystem() {
+            try {
+                state.trafficSystem = new SmartTrafficSystem();
+                state.inboxBinding = new InboxBindingSystem();
+                state.trafficSystem.init();
+                
+                // Show health indicator
+                const healthIndicator = document.getElementById('apiHealthIndicator');
+                if (healthIndicator) {
+                    healthIndicator.classList.remove('hidden');
+                }
+                
+                // Show traffic distribution bar
+                const trafficBar = document.getElementById('trafficDistributionBar');
+                if (trafficBar) {
+                    trafficBar.classList.remove('hidden');
+                }
+                
+                console.log('Smart Traffic System: Ready');
+            } catch (error) {
+                console.error('Failed to initialize Smart Traffic System:', error);
+                // Fallback: create basic systems
+                state.trafficSystem = {
+                    activeApi: { name: 'GuerrillaMail', id: 'api-1' },
+                    bindEmailToApi: () => console.log('Fallback: Email binding'),
+                    getBoundApiForEmail: () => null
+                };
+                state.inboxBinding = new InboxBindingSystem();
+            }
+        }
+
+        // =================================================================
+        // MODIFIED EMAIL GENERATION WITH SMART TRAFFIC
+        // =================================================================
+        async function generateTempEmail() {
+            elements.emailStatus.textContent = 'Generating email...';
+            elements.connectionStatus.className = 'connection-status online';
+            elements.connectionStatus.innerHTML = '<i class="fas fa-circle"></i><span>Connecting...</span>';
+            
+            try {
+                // Generate a random username for the email
+                const prefixes = ["alex", "jamie", "taylor", "morgan", "casey", "riley"];
+                const suffixes = ["smith", "johnson", "brown", "davis", "wilson"];
+                const prefix = prefixes[Math.floor(Math.random() * prefixes.length)];
+                const suffix = suffixes[Math.floor(Math.random() * suffixes.length)];
+                const randomNum = Math.floor(Math.random() * 999) + 1;
+                const username = `${prefix}${suffix}${randomNum}`;
+                
+                // SMART TRAFFIC SYSTEM: Use smart traffic system with failover
+                let generatedData = null;
+                let selectedApi = null;
+                
+                if (state.trafficSystem && state.trafficSystem.executeRequest) {
+                    try {
+                        generatedData = await state.trafficSystem.executeRequest(
+                            async (api) => {
+                                selectedApi = api;
+                                
+                                if (api.id === 'api-1') { // GuerrillaMail
+                                    const response = await fetch(`${api.baseUrl}?f=set_email_user&email_user=${username}&lang=en`, {
+                                        mode: 'cors',
+                                        headers: {
+                                            'Accept': 'application/json'
+                                        }
+                                    });
+                                    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+                                    const data = await response.json();
+                                    
+                                    // Fix the email address format if needed
+                                    if (data.email_addr && !data.email_addr.includes('@')) {
+                                        data.email_addr = `${username}@guerrillamail.com`;
+                                    }
+                                    
+                                    return data;
+                                }
+                                // Other APIs would be implemented here
+                                throw new Error('API not implemented');
+                            },
+                            { 
+                                maxRetries: 2,
+                                emailAddress: `${username}@guerrillamail.com`
+                            }
+                        );
+                    } catch (error) {
+                        console.warn('Smart traffic system failed, using direct API call:', error);
+                        // Fallback to direct call
+                        selectedApi = { name: 'GuerrillaMail', id: 'api-1' };
+                        const response = await fetch(`https://api.guerrillamail.com/ajax.php?f=set_email_user&email_user=${username}&lang=en`);
+                        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+                        generatedData = await response.json();
+                    }
+                } else {
+                    // Fallback to original method
+                    selectedApi = { name: 'GuerrillaMail', id: 'api-1' };
+                    const response = await fetch(`https://api.guerrillamail.com/ajax.php?f=set_email_user&email_user=${username}&lang=en`);
+                    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+                    generatedData = await response.json();
+                }
+                
+                if (generatedData) {
+                    // Extract email and token from response
+                    const email = generatedData.email_addr || `${username}@guerrillamail.com`;
+                    const token = generatedData.sid_token || `sid_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+                    
+                    state.currentEmail = email;
+                    state.emailToken = token;
+                    state.activeApi = selectedApi.id;
+                    state.boundApiId = selectedApi.id;
+                    state.inbox = [];
+                    state.selectedEmailId = null;
+                    state.retryCount = 0;
+                    
+                    // INBOX BINDING: Bind this email to the API
+                    if (state.inboxBinding) {
+                        state.inboxBinding.bindEmailToApi(
+                            state.currentEmail,
+                            selectedApi.id,
+                            {
+                                sid_token: token,
+                                email_addr: email,
+                                timestamp: Date.now()
+                            }
+                        );
+                    }
+                    
+                    // Also bind in smart traffic system
+                    if (state.trafficSystem && state.trafficSystem.bindEmailToApi) {
+                        state.trafficSystem.bindEmailToApi(state.currentEmail, selectedApi.id);
+                    }
+                    
+                    // Update UI
+                    elements.currentEmail.innerHTML = `${state.currentEmail} <span class="api-source-badge">${selectedApi.name}</span>`;
+                    elements.currentEmailContainer.style.display = 'flex';
+                    elements.emailCreated.textContent = `Active • Auto-refresh every 30s`;
+                    elements.emailStatus.textContent = 'Email ready - start receiving emails!';
+                    elements.apiStatusText.textContent = `API: ${selectedApi.name} • Smart Traffic: Active`;
+                    elements.connectionStatus.className = 'connection-status online';
+                    elements.connectionStatus.innerHTML = '<i class="fas fa-circle"></i><span>Connected</span>';
+                    
+                    // Show API session badge
+                    const apiSessionBadge = document.getElementById('apiSessionBadge');
+                    const boundApiName = document.getElementById('boundApiName');
+                    if (apiSessionBadge && boundApiName) {
+                        boundApiName.textContent = selectedApi.name;
+                        apiSessionBadge.classList.remove('hidden');
+                    }
+
+                    elements.emailViewer.innerHTML = `
+                        <div class="email-viewer-empty">
+                            <i class="fas fa-inbox empty-icon"></i>
+                            <h3>Email address generated</h3>
+                            <p class="mt-1">Your temporary email is ready. Emails will appear here when received.</p>
+                            <p class="mt-1"><strong>${state.currentEmail}</strong> <span class="api-source-badge">${selectedApi.name}</span></p>
+                            <p class="mt-1"><i>This email is bound to ${selectedApi.name} API for consistent inbox access</i></p>
+                            <p class="mt-1"><small>Smart Traffic: Load balanced with automatic failover</small></p>
+                        </div>
+                    `;
+
+                    saveToStorage();
+                    loadInbox();
+                    startAutoRefresh();
+                    showNotification(`Real working email generated via ${selectedApi.name}! Copy and use it anywhere.`, 'success');
+                    
+                } else {
+                    throw new Error('Invalid API response');
+                }
+                
+            } catch (error) {
+                console.error('Email generation failed:', error);
+                state.connectionStatus = 'offline';
+                updateConnectionStatus();
+                elements.emailStatus.textContent = 'Generation failed';
+                showNotification('Could not generate email. Please try again.', 'error');
+                fallbackEmailGeneration();
+            }
+        }
+
+        // =================================================================
+        // MODIFIED INBOX LOADING WITH BINDING SUPPORT
+        // =================================================================
+        async function loadInbox() {
+            if (!state.currentEmail) {
+                showNotification('Generate an email address first.', 'error');
+                return;
+            }
+            
+            elements.emailStatus.textContent = 'Checking for new emails...';
+            
+            try {
+                // INBOX BINDING: Get bound API for this email
+                let boundApi = null;
+                let sessionData = null;
+                
+                if (state.inboxBinding) {
+                    const binding = state.inboxBinding.getBoundApi(state.currentEmail);
+                    if (binding) {
+                        boundApi = binding;
+                        state.boundApiId = binding.apiId;
+                        sessionData = binding.sessionData;
+                        
+                        // Update state with bound session data if available
+                        if (sessionData && sessionData.sid_token) {
+                            state.emailToken = sessionData.sid_token;
+                        }
+                        
+                        console.log('Inbox Binding: Using bound API', binding.apiId);
+                    } else {
+                        // Create a binding if none exists (for legacy emails)
+                        console.log('Inbox Binding: Creating binding for existing email');
+                        state.inboxBinding.bindEmailToApi(
+                            state.currentEmail,
+                            'api-1', // Default to API-1
+                            {
+                                sid_token: state.emailToken || `legacy_${Date.now()}`,
+                                email_addr: state.currentEmail,
+                                timestamp: Date.now()
+                            }
+                        );
+                        state.boundApiId = 'api-1';
+                    }
+                }
+                
+                // Prepare the API request
+                const apiUrl = `https://api.guerrillamail.com/ajax.php?f=get_email_list&offset=0&sid_token=${encodeURIComponent(state.emailToken || '')}`;
+                
+                // SMART TRAFFIC SYSTEM: Use executeRequest if available
+                let inboxData = null;
+                
+                if (state.trafficSystem && state.trafficSystem.executeRequest) {
+                    try {
+                        inboxData = await state.trafficSystem.executeRequest(
+                            async (api) => {
+                                // Always use GuerrillaMail API for now (api-1)
+                                if (api.id === 'api-1') {
+                                    const response = await fetch(apiUrl, {
+                                        mode: 'cors',
+                                        headers: {
+                                            'Accept': 'application/json'
+                                        }
+                                    });
+                                    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+                                    return await response.json();
+                                }
+                                throw new Error('API not implemented');
+                            },
+                            { 
+                                emailAddress: state.currentEmail,
+                                maxRetries: 2,
+                                preferredApi: state.trafficSystem.apis.find(a => a.id === 'api-1')
+                            }
+                        );
+                    } catch (error) {
+                        console.warn('Smart traffic request failed, trying direct:', error);
+                        // Fallback to direct request
+                        const response = await fetch(apiUrl);
+                        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+                        inboxData = await response.json();
+                    }
+                } else {
+                    // Direct request
+                    const response = await fetch(apiUrl);
+                    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+                    inboxData = await response.json();
+                }
+                
+                if (inboxData) {
+                    // Reset retry count on success
+                    state.retryCount = 0;
+                    state.connectionStatus = 'online';
+                    updateConnectionStatus();
+                    
+                    // Process emails
+                    let emailList = [];
+                    if (inboxData.list && Array.isArray(inboxData.list)) {
+                        emailList = inboxData.list;
+                    } else if (inboxData.emails && Array.isArray(inboxData.emails)) {
+                        emailList = inboxData.emails;
+                    }
+                    
+                    const newInbox = emailList.map(email => {
+                        const existing = state.inbox.find(e => e.mail_id === email.mail_id || e.id === email.id);
+                        
+                        return {
+                            ...email,
+                            unread: existing ? existing.unread : true,
+                            hasOTP: checkForOTP(email.mail_subject || email.subject + ' ' + (email.mail_excerpt || email.excerpt || '')),
+                            fetched: existing ? existing.fetched : false,
+                            apiSource: state.boundApiId || state.activeApi // Track which API provided this email
+                        };
+                    });
+                    
+                    state.inbox = newInbox.sort((a, b) => {
+                        const timeA = a.mail_timestamp || a.timestamp || 0;
+                        const timeB = b.mail_timestamp || b.timestamp || 0;
+                        return timeB - timeA;
+                    });
+                    
+                    renderInbox();
+                    
+                    // Update status
+                    const newCount = state.inbox.filter(e => e.unread).length;
+                    const totalCount = state.inbox.length;
+                    
+                    if (newCount > 0) {
+                        elements.emailStatus.textContent = `${newCount} new • ${totalCount} total emails`;
+                        if (newCount === 1) {
+                            showNotification('New email received!', 'success');
+                        } else if (newCount > 1) {
+                            showNotification(`${newCount} new emails received!`, 'success');
+                        }
+                    } else {
+                        elements.emailStatus.textContent = totalCount > 0 ? `${totalCount} emails (ready)` : 'No emails yet';
+                    }
+                    
+                    saveToStorage();
+                    
+                } else {
+                    // If API returns empty but we're online, show empty inbox
+                    state.inbox = [];
+                    renderInbox();
+                    elements.emailStatus.textContent = 'No emails yet';
+                }
+                
+            } catch (error) {
+                console.error('Inbox load error:', error);
+                
+                // Increment retry count
+                state.retryCount++;
+                
+                // If we've retried too many times, go offline
+                if (state.retryCount > 3) {
+                    state.connectionStatus = 'offline';
+                    updateConnectionStatus();
+                    
+                    // SMART TRAFFIC SYSTEM: Log the failure
+                    if (state.trafficSystem && state.trafficSystem.log) {
+                        state.trafficSystem.log(`Inbox load failed after ${state.retryCount} retries`, 'error');
+                    }
+                }
+                
+                elements.emailStatus.textContent = 'Inbox refresh failed';
+                showNotification('Could not fetch inbox. Service might be busy.', 'error');
+                
+                // If we have existing emails, still show them
+                if (state.inbox.length > 0) {
+                    renderInbox();
+                }
+            }
+        }
+
+        // =================================================================
+        // MODIFIED DELETE INBOX WITH CLEANUP
+        // =================================================================
+        function deleteInbox() {
+            if (!confirm('Delete this inbox? All emails will be lost.')) return;
+            
+            // INBOX BINDING: Clean up bindings
+            if (state.currentEmail && state.inboxBinding) {
+                state.inboxBinding.cleanup(state.currentEmail);
+            }
+            
+            clearStorage();
+            state.currentEmail = null; 
+            state.inbox = []; 
+            state.currentEmailData = null; 
+            state.selectedEmailId = null; 
+            state.emailToken = null;
+            state.retryCount = 0;
+            state.boundApiId = null;
+            
+            elements.currentEmailContainer.style.display = 'none';
+            elements.inboxList.innerHTML = `
+                <div class="email-viewer-empty">
+                    <i class="fas fa-inbox empty-icon"></i>
+                    <h3>No email address generated yet</h3>
+                    <p class="mt-1">Click "Generate Email" to start.</p>
+                </div>`;
+            elements.emailViewer.innerHTML = `
+                <div class="email-viewer-empty">
+                    <i class="fas fa-envelope-open-text empty-icon"></i>
+                    <h3>No email selected</h3>
+                    <p class="mt-1">Select an email from the inbox to view.</p>
+                </div>`;
+            elements.emailStatus.textContent = 'Ready'; 
+            elements.saveEmailBtn.style.display = 'none';
+            elements.copyOTPBtn.style.display = 'none';
+            elements.markUnreadBtn.style.display = 'none';
+            
+            // Hide API session badge
+            const apiSessionBadge = document.getElementById('apiSessionBadge');
+            if (apiSessionBadge) {
+                apiSessionBadge.classList.add('hidden');
+            }
+            
+            if (state.autoRefreshInterval) {
+                clearInterval(state.autoRefreshInterval);
+                state.autoRefreshInterval = null;
+            }
+            
+            state.connectionStatus = 'online';
+            updateConnectionStatus();
+            
+            showNotification('Inbox deleted.', 'success');
+        }
+
+        // =================================================================
+        // MODIFIED INITIALIZATION
+        // =================================================================
+        function initApp() {
+            loadFromStorage();
+            setupEventListeners();
+            setupFilters();
+            
+            // SMART TRAFFIC SYSTEM: Initialize
+            initSmartTrafficSystem();
+            
+            if (!state.fakeIdentity) {
+                generateFakeIdentity();
+            } else {
+                updateIdentityUI();
+            }
+            
+            if (state.currentEmail) {
+                elements.currentEmail.textContent = state.currentEmail;
+                elements.currentEmailContainer.style.display = 'flex';
+                elements.emailCreated.textContent = `Active • Auto-refresh every 30s`;
+                elements.emailStatus.textContent = 'Ready';
+                
+                // INBOX BINDING: Show API session badge if bound
+                if (state.inboxBinding) {
+                    const binding = state.inboxBinding.getBoundApi(state.currentEmail);
+                    if (binding) {
+                        const apiSessionBadge = document.getElementById('apiSessionBadge');
+                        const boundApiName = document.getElementById('boundApiName');
+                        if (apiSessionBadge && boundApiName) {
+                            // Get API name from traffic system or use default
+                            let apiName = 'GuerrillaMail';
+                            if (state.trafficSystem && state.trafficSystem.apis) {
+                                const api = state.trafficSystem.apis.find(a => a.id === binding.apiId);
+                                if (api) apiName = api.name;
+                            }
+                            boundApiName.textContent = apiName;
+                            apiSessionBadge.classList.remove('hidden');
+                        }
+                        
+                        // Update email token from binding if available
+                        if (binding.sessionData && binding.sessionData.sid_token) {
+                            state.emailToken = binding.sessionData.sid_token;
+                        }
+                    } else {
+                        // Create binding for existing email
+                        state.inboxBinding.bindEmailToApi(
+                            state.currentEmail,
+                            'api-1',
+                            {
+                                sid_token: state.emailToken || `legacy_${Date.now()}`,
+                                email_addr: state.currentEmail,
+                                timestamp: Date.now()
+                            }
+                        );
+                    }
+                }
+                
+                loadInbox();
+                startAutoRefresh();
+            }
+            
+            applyUITheme();
+            updateConnectionStatus();
+        }
+
+        // =================================================================
+        // MODIFIED START AUTO REFRESH WITH BINDING
+        // =================================================================
+        function startAutoRefresh() {
+            if (state.autoRefreshInterval) {
+                clearInterval(state.autoRefreshInterval);
+            }
+            
+            if (state.currentEmail) {
+                state.autoRefreshInterval = setInterval(() => { 
+                    loadInbox(); 
+                }, 30000); // Every 30 seconds
+                
+                // INBOX BINDING: Start bound polling if available
+                if (state.inboxBinding && state.inboxBinding.startPolling) {
+                    state.inboxBinding.startPolling(state.currentEmail, async (binding) => {
+                        // This ensures we always use the bound API for this email
+                        console.log('Polling inbox via bound API:', binding.apiId);
+                        await loadInbox();
+                    }, 30000);
+                }
+            }
+        }
+
+        // DOM Elements
+        const elements = {
+            generateEmailBtn: document.getElementById('generateEmailBtn'),
+            copyEmailBtn: document.getElementById('copyEmailBtn'),
+            refreshInboxBtn: document.getElementById('refreshInboxBtn'),
+            deleteInboxBtn: document.getElementById('deleteInboxBtn'),
+            generateIdentityBtn: document.getElementById('generateIdentityBtn'),
+            copyIdentityBtn: document.getElementById('copyIdentityBtn'),
+            saveEmailBtn: document.getElementById('saveEmailBtn'),
+            copyOTPBtn: document.getElementById('copyOTPBtn'),
+            markUnreadBtn: document.getElementById('markUnreadBtn'),
+            themeToggle: document.getElementById('themeToggle'),
+            currentEmailContainer: document.getElementById('currentEmailContainer'),
+            currentEmail: document.getElementById('currentEmail'),
+            emailCreated: document.getElementById('emailCreated'),
+            inboxList: document.getElementById('inboxList'),
+            emailViewer: document.getElementById('emailViewer'),
+            emailStatus: document.getElementById('emailStatus'),
+            connectionStatus: document.getElementById('connectionStatus'),
+            identityPhoto: document.getElementById('identityPhoto'),
+            identityName: document.getElementById('identityName'),
+            identityUsername: document.getElementById('identityUsername'),
+            identityEmail: document.getElementById('identityEmail'),
+            identityPhone: document.getElementById('identityPhone'),
+            identityAgeGender: document.getElementById('identityAgeGender'),
+            identityLocation: document.getElementById('identityLocation'),
+            identityPassword: document.getElementById('identityPassword'),
+            identityDob: document.getElementById('identityDob'),
+            identityNationality: document.getElementById('identityNationality'),
+            identityStreet: document.getElementById('identityStreet'),
+            identityCityState: document.getElementById('identityCityState'),
+            identityPostcode: document.getElementById('identityPostcode'),
+            identityRegistered: document.getElementById('identityRegistered'),
+            identityUuid: document.getElementById('identityUuid'),
+            identityId: document.getElementById('identityId'),
+            socialProfiles: document.getElementById('socialProfiles'),
+            themeIcon: document.getElementById('themeIcon'),
+            themeText: document.getElementById('themeText'),
+            copyFeedback: document.getElementById('copyFeedback'),
+            copyMessage: document.getElementById('copyMessage'),
+            apiStatusText: document.getElementById('apiStatusText'),
+            filterBtns: document.querySelectorAll('.filter-btn')
+        };
+
+        // =================================================================
+        // WORKING EMAIL API - UPDATED TO USE SMART TRAFFIC DISTRIBUTION
+        // =================================================================
+        const API = {
+            GUERRILLAMAIL: {
+                name: 'guerrillamail',
+                displayName: 'GuerrillaMail',
+                base: 'https://api.guerrillamail.com/ajax.php',
+                endpoints: {
+                    getEmailAddress: () => `${API.GUERRILLAMAIL.base}?f=get_email_address`,
+                    setEmailAddress: (user) => `${API.GUERRILLAMAIL.base}?f=set_email_user&email_user=${user}`,
+                    checkEmail: (sid) => `${API.GUERRILLAMAIL.base}?f=check_email&seq=0&sid_token=${sid}`,
+                    fetchEmail: (sid, id) => `${API.GUERRILLAMAIL.base}?f=fetch_email&email_id=${id}&sid_token=${sid}`,
+                    getEmailList: (sid) => `${API.GUERRILLAMAIL.base}?f=get_email_list&offset=0&sid_token=${sid}`
+                }
+            },
+            RANDOM_USER: 'https://randomuser.me/api/',
+            SOCIAL: {
+                INSTAGRAM: (u) => `https://instagram.com/${u}`,
+                FACEBOOK: (u) => `https://facebook.com/${u}`,
+                TWITTER: (u) => `https://twitter.com/${u}`,
+                YOUTUBE: (u) => `https://youtube.com/@${u}`,
+                LINKEDIN: (u) => `https://linkedin.com/in/${u}`
+            }
+        };
+
+        // =================================================================
+        // CORE FUNCTIONS (UNCHANGED)
+        // =================================================================
+        function loadFromStorage() {
+            try {
+                const savedEmail = localStorage.getItem('tampmail_currentEmail');
+                const savedInbox = localStorage.getItem('tampmail_inbox');
+                const savedIdentity = localStorage.getItem('tampmail_identity');
+                const savedTheme = localStorage.getItem('tampmail_theme');
+                const savedToken = localStorage.getItem('tampmail_token');
+                
+                if (savedEmail) {
+                    state.currentEmail = savedEmail;
+                }
+                
+                if (savedToken) {
+                    state.emailToken = savedToken;
+                }
+                
+                if (savedInbox) { 
+                    try {
+                        state.inbox = JSON.parse(savedInbox); 
+                        renderInbox(); 
+                    } catch (e) {
+                        state.inbox = [];
+                    }
+                }
+                
+                if (savedIdentity) {
+                    try {
+                        state.fakeIdentity = JSON.parse(savedIdentity);
+                    } catch (e) {
+                        state.fakeIdentity = null;
+                    }
+                }
+                
+                if (savedTheme === 'gmail') state.isGmailUI = true;
+            } catch (error) {
+                console.error('Failed to load from storage:', error);
+                clearStorage();
+            }
+        }
+
+        function clearStorage() {
+            localStorage.removeItem('tampmail_currentEmail');
+            localStorage.removeItem('tampmail_inbox');
+            localStorage.removeItem('tampmail_identity');
+            localStorage.removeItem('tampmail_token');
+            state.currentEmail = null;
+            state.emailToken = null;
+            state.inbox = [];
+        }
+
+        function saveToStorage() {
+            try {
+                if (state.currentEmail) {
+                    localStorage.setItem('tampmail_currentEmail', state.currentEmail);
+                }
+                
+                if (state.emailToken) {
+                    localStorage.setItem('tampmail_token', state.emailToken);
+                }
+                
+                if (state.inbox.length > 0) {
+                    localStorage.setItem('tampmail_inbox', JSON.stringify(state.inbox));
+                }
+                
+                if (state.fakeIdentity) {
+                    localStorage.setItem('tampmail_identity', JSON.stringify(state.fakeIdentity));
+                }
+                
+                localStorage.setItem('tampmail_theme', state.isGmailUI ? 'gmail' : 'tampmail');
+            } catch (error) {
+                console.error('Failed to save to storage:', error);
+            }
+        }
+
+        function setupEventListeners() {
+            elements.generateEmailBtn.addEventListener('click', generateTempEmail);
+            elements.copyEmailBtn.addEventListener('click', copyCurrentEmail);
+            elements.refreshInboxBtn.addEventListener('click', loadInbox);
+            elements.deleteInboxBtn.addEventListener('click', deleteInbox);
+            elements.generateIdentityBtn.addEventListener('click', generateFakeIdentity);
+            elements.copyIdentityBtn.addEventListener('click', copyIdentityDetails);
+            elements.saveEmailBtn.addEventListener('click', saveCurrentEmail);
+            elements.copyOTPBtn.addEventListener('click', copyOTP);
+            elements.markUnreadBtn.addEventListener('click', markEmailUnread);
+            elements.themeToggle.addEventListener('click', toggleUITheme);
+            elements.copyFeedback.addEventListener('click', () => { 
+                elements.copyFeedback.classList.add('hidden'); 
+            });
+            
+            // Retry connection button
+            elements.connectionStatus.addEventListener('click', () => {
+                if (state.connectionStatus === 'offline') {
+                    loadInbox();
+                }
+            });
+        }
+
+        function setupFilters() {
+            elements.filterBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    elements.filterBtns.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    state.activeFilter = this.getAttribute('data-filter');
+                    renderInbox();
+                });
+            });
+        }
+
+        // Fallback email generation when API fails
+        function fallbackEmailGeneration() {
+            const domains = ['guerrillamail.com', 'guerrillamail.net', 'guerrillamail.org'];
+            const domain = domains[Math.floor(Math.random() * domains.length)];
+            const randomId = Math.random().toString(36).substring(2, 10);
+            const randomNum = Math.floor(Math.random() * 999) + 1;
+            
+            state.currentEmail = `temp${randomNum}${randomId}@${domain}`;
+            state.emailToken = `fallback_${Date.now()}`;
+            
+            elements.currentEmail.innerHTML = `${state.currentEmail} <span class="api-source-badge">Fallback</span>`;
+            elements.currentEmailContainer.style.display = 'flex';
+            elements.emailCreated.textContent = `Demo Mode • Limited functionality`;
+            elements.emailStatus.textContent = 'Using fallback email';
+            elements.apiStatusText.textContent = 'API: Offline • Demo Mode';
+            
+            // Create demo inbox
+            createDemoInbox();
+            showNotification('Using demo mode. Some features limited.', 'warning');
+        }
+
+        // Create demo inbox for fallback mode
+        function createDemoInbox() {
+            const demoEmails = [
+                {
+                    mail_id: 'demo1',
+                    mail_from: 'noreply@example.com',
+                    mail_subject: 'Welcome to Our Service',
+                    mail_excerpt: 'Thank you for signing up! Please confirm your email address.',
+                    mail_timestamp: Math.floor(Date.now() / 1000) - 3600,
+                    unread: true,
+                    hasOTP: false,
+                    fetched: false
+                },
+                {
+                    mail_id: 'demo2',
+                    mail_from: 'security@website.com',
+                    mail_subject: 'Your Verification Code: 485729',
+                    mail_excerpt: 'Your verification code is 485729. This code will expire in 10 minutes.',
+                    mail_timestamp: Math.floor(Date.now() / 1000) - 1800,
+                    unread: true,
+                    hasOTP: '485729',
+                    fetched: false
+                },
+                {
+                    mail_id: 'demo3',
+                    mail_from: 'newsletter@company.com',
+                    mail_subject: 'Weekly Newsletter',
+                    mail_excerpt: 'Check out our latest updates and news for this week.',
+                    mail_timestamp: Math.floor(Date.now() / 1000) - 7200,
+                    unread: false,
+                    hasOTP: false,
+                    fetched: false
+                }
+            ];
+            
+            state.inbox = demoEmails;
+            renderInbox();
+            elements.emailStatus.textContent = `${state.inbox.length} demo emails`;
+        }
+
+        // Helper to check for OTP in text
+        function checkForOTP(text) {
+            const otpPatterns = [
+                /\b\d{4,6}\b/g, // 4-6 digit OTP
+                /verification code:?\s*(\d{4,6})/i,
+                /OTP:?\s*(\d{4,6})/i,
+                /code:?\s*(\d{4,6})/i,
+                /password:?\s*(\d{4,6})/i
+            ];
+            
+            for (const pattern of otpPatterns) {
+                const match = text.match(pattern);
+                if (match) return match[0].replace(/\D/g, ''); // Extract only digits
+            }
+            return null;
+        }
+
+        // Update connection status display
+        function updateConnectionStatus() {
+            if (state.connectionStatus === 'online') {
+                elements.connectionStatus.className = 'connection-status online';
+                elements.connectionStatus.innerHTML = '<i class="fas fa-circle"></i><span>Connected</span>';
+            } else {
+                elements.connectionStatus.className = 'connection-status offline';
+                elements.connectionStatus.innerHTML = '<i class="fas fa-circle"></i><span>Offline - Click to retry</span>';
+            }
+        }
+
+        // =================================================================
+        // RENDER INBOX WITH FILTERING
+        // =================================================================
+        function renderInbox() {
+            if (!state.inbox || state.inbox.length === 0) {
+                elements.inboxList.innerHTML = `
+                    <div class="email-viewer-empty">
+                        <i class="fas fa-inbox empty-icon"></i>
+                        <h3>Inbox is empty</h3>
+                        <p class="mt-1">No emails received yet. Share your temporary email to start receiving emails.</p>
+                        <p class="mt-1"><strong>${state.currentEmail || 'No email'}</strong></p>
+                        <p class="mt-1"><i>This is a REAL email address. You can use it to sign up for websites and receive OTPs!</i></p>
+                    </div>
+                `;
+                return;
+            }
+            
+            // Apply filter
+            let filteredInbox = state.inbox;
+            if (state.activeFilter === 'unread') {
+                filteredInbox = state.inbox.filter(email => email.unread);
+            } else if (state.activeFilter === 'otp') {
+                filteredInbox = state.inbox.filter(email => email.hasOTP);
+            }
+            
+            if (filteredInbox.length === 0) {
+                elements.inboxList.innerHTML = `
+                    <div class="email-viewer-empty">
+                        <i class="fas fa-filter empty-icon"></i>
+                        <h3>No emails match the filter</h3>
+                        <p class="mt-1">Try changing the filter or check back later for new emails.</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            let inboxHTML = '';
+            filteredInbox.forEach(email => {
+                const timestamp = email.mail_timestamp || email.timestamp || Date.now() / 1000;
+                const date = new Date(timestamp * 1000);
+                const formattedDate = date.toLocaleDateString() + ' ' + date.toLocaleTimeString([], { 
+                    hour: '2-digit', 
+                    minute: '2-digit' 
+                });
+                
+                const sender = email.mail_from || email.from || 'Unknown Sender';
+                const subject = email.mail_subject || email.subject || 'No subject';
+                const preview = (email.mail_excerpt || email.excerpt || 'No preview available').substring(0, 120) + '...';
+                const hasOTP = email.hasOTP;
+                const emailId = email.mail_id || email.id || `email_${timestamp}`;
+                
+                inboxHTML += `
+                    <div class="email-item ${email.unread ? 'unread' : ''}" data-id="${emailId}">
+                        <div class="email-header">
+                            <div class="email-sender">${escapeHtml(sender)}</div>
+                            <div class="email-date">${formattedDate}</div>
+                        </div>
+                        <div class="email-subject">
+                            ${escapeHtml(subject)}
+                            ${hasOTP ? ' <i class="fas fa-key" style="color: var(--success-color);"></i>' : ''}
+                        </div>
+                        <div class="email-preview">${escapeHtml(preview)}</div>
+                    </div>
+                `;
+            });
+            
+            elements.inboxList.innerHTML = inboxHTML;
+            
+            // Add click listeners
+            document.querySelectorAll('.email-item').forEach(item => {
+                item.addEventListener('click', function() {
+                    const emailId = this.getAttribute('data-id');
+                    loadEmailDetail(emailId);
+                });
+            });
+        }
+
+        // =================================================================
+        // LOAD EMAIL DETAIL
+        // =================================================================
+        async function loadEmailDetail(emailId) {
+            if (!state.emailToken || !emailId) return;
+            
+            try {
+                // Mark as read in UI immediately
+                const emailIndex = state.inbox.findIndex(e => 
+                    e.mail_id === emailId || e.id === emailId
+                );
+                if (emailIndex !== -1) {
+                    state.inbox[emailIndex].unread = false;
+                    saveToStorage();
+                }
+                
+                // Try to fetch full email from API
+                let email = state.inbox.find(e => e.mail_id === emailId || e.id === emailId);
+                
+                // Only fetch from API if not already fetched (and not demo email)
+                if (email && !email.fetched && !emailId.startsWith('demo') && !emailId.startsWith('email_')) {
+                    try {
+                        // Use bound API if available
+                        const apiUrl = `https://api.guerrillamail.com/ajax.php?f=fetch_email&email_id=${emailId}&sid_token=${state.emailToken}`;
+                        const response = await fetch(apiUrl);
+                        
+                        if (response.ok) {
+                            const data = await response.json();
+                            if (data && data.mail_body) {
+                                email.mail_body = data.mail_body;
+                                email.fetched = true;
+                            }
+                        }
+                    } catch (error) {
+                        console.error('Error fetching email details:', error);
+                    }
+                }
+                
+                state.selectedEmailId = emailId;
+                state.currentEmailData = email;
+                
+                // Extract OTP
+                let emailBody = email.mail_body || email.mail_excerpt || email.excerpt || 'No content available.';
+                let otpCode = email.hasOTP || checkForOTP((email.mail_subject || email.subject || '') + ' ' + emailBody);
+                
+                // Format email body
+                let formattedBody = emailBody
+                    .replace(/\n/g, '<br>')
+                    .replace(/\t/g, '&nbsp;&nbsp;&nbsp;&nbsp;');
+                
+                // Highlight OTP if found
+                if (otpCode) {
+                    formattedBody = formattedBody.replace(
+                        new RegExp(`\\b${otpCode}\\b`, 'g'),
+                        `<span class="otp-highlight">${otpCode}</span>`
+                    );
+                    elements.copyOTPBtn.style.display = 'inline-flex';
+                    elements.copyOTPBtn.setAttribute('data-otp', otpCode);
+                } else {
+                    elements.copyOTPBtn.style.display = 'none';
+                }
+                
+                elements.saveEmailBtn.style.display = 'inline-flex';
+                elements.markUnreadBtn.style.display = 'inline-flex';
+                
+                const emailHTML = `
+                    <div class="email-detail-header">
+                        <div class="email-detail-subject">
+                            ${escapeHtml(email.mail_subject || email.subject || 'No subject')}
+                            ${otpCode ? '<span class="otp-highlight" style="margin-left: 10px;">OTP: ' + otpCode + '</span>' : ''}
+                        </div>
+                        <div class="email-detail-info">
+                            <div>
+                                <div class="email-detail-sender">From: ${escapeHtml(email.mail_from || email.from || 'Unknown')}</div>
+                                <div class="email-detail-sender mt-1">To: ${escapeHtml(state.currentEmail)}</div>
+                            </div>
+                            <div class="email-detail-date">${new Date((email.mail_timestamp || email.timestamp || Date.now() / 1000) * 1000).toLocaleString()}</div>
+                        </div>
+                    </div>
+                    <div class="email-body">
+                        ${formattedBody}
+                    </div>
+                `;
+                
+                elements.emailViewer.innerHTML = emailHTML;
+                
+                // Re-render inbox to update read status
+                renderInbox();
+                
+            } catch (error) {
+                console.error('Error loading email:', error);
+                elements.emailViewer.innerHTML = `
+                    <div class="email-viewer-empty">
+                        <i class="fas fa-exclamation-triangle empty-icon"></i>
+                        <h3>Failed to load email</h3>
+                        <p class="mt-1">Could not load the email content. Please try again.</p>
+                    </div>
+                `;
+            }
+        }
+
+        // Mark email as unread
+        function markEmailUnread() {
+            if (!state.selectedEmailId) return;
+            
+            const emailIndex = state.inbox.findIndex(e => 
+                e.mail_id === state.selectedEmailId || e.id === state.selectedEmailId
+            );
+            if (emailIndex !== -1) {
+                state.inbox[emailIndex].unread = true;
+                saveToStorage();
+                renderInbox();
+                showNotification('Email marked as unread', 'success');
+            }
+        }
+
+        // Helper function to prevent XSS
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // =================================================================
+        // FAKE IDENTITY FUNCTIONS (WORKING)
+        // =================================================================
+        async function generateFakeIdentity() {
+            try {
+                showSkeletonLoading();
+                const response = await fetch(API.RANDOM_USER);
+                const data = await response.json();
+                if (data?.results?.length > 0) {
+                    state.fakeIdentity = data.results[0];
+                    updateIdentityUI();
+                    saveToStorage();
+                    showNotification('New identity generated!', 'success');
+                }
+            } catch (error) {
+                console.error('Identity API failed:', error);
+                state.fakeIdentity = getFallbackIdentity();
+                updateIdentityUI();
+                showNotification('Using offline identity data.', 'warning');
+            }
+        }
+
+        function updateIdentityUI() {
+            if (!state.fakeIdentity) return;
+            const user = state.fakeIdentity;
+            const name = `${user.name.first} ${user.name.last}`;
+            const username = user.login.username;
+            elements.identityPhoto.src = user.picture.large;
+            elements.identityName.textContent = name;
+            elements.identityUsername.textContent = `@${username}`;
+            elements.identityEmail.textContent = user.email;
+            elements.identityPhone.textContent = user.phone;
+            elements.identityAgeGender.textContent = `${user.dob.age} / ${user.gender}`;
+            elements.identityLocation.textContent = `${user.location.city}, ${user.location.country}`;
+            elements.identityPassword.textContent = user.login.password;
+            elements.identityDob.textContent = new Date(user.dob.date).toLocaleDateString();
+            elements.identityNationality.textContent = user.nat;
+            elements.identityStreet.textContent = `${user.location.street.number} ${user.location.street.name}`;
+            elements.identityCityState.textContent = `${user.location.city}, ${user.location.state}`;
+            elements.identityPostcode.textContent = user.location.postcode;
+            elements.identityRegistered.textContent = new Date(user.registered.date).toLocaleDateString();
+            elements.identityUuid.textContent = user.login.uuid;
+            elements.identityId.textContent = `${user.id.name || 'ID'}: ${user.id.value || 'N/A'}`;
+            
+            const socials = [
+                { name: 'Instagram', icon: 'fab fa-instagram', url: API.SOCIAL.INSTAGRAM(username), class: 'instagram' },
+                { name: 'Facebook', icon: 'fab fa-facebook', url: API.SOCIAL.FACEBOOK(username), class: 'facebook' },
+                { name: 'Twitter', icon: 'fab fa-twitter', url: API.SOCIAL.TWITTER(username), class: 'twitter' },
+                { name: 'YouTube', icon: 'fab fa-youtube', url: API.SOCIAL.YOUTUBE(username), class: 'youtube' },
+                { name: 'LinkedIn', icon: 'fab fa-linkedin', url: API.SOCIAL.LINKEDIN(username), class: 'linkedin' }
+            ];
+            elements.socialProfiles.innerHTML = socials.map(s => `
+                <a href="${s.url}" target="_blank" class="social-profile">
+                    <i class="${s.icon} social-icon ${s.class}"></i><span>${s.name}</span>
+                </a>
+            `).join('');
+        }
+
+        function showSkeletonLoading() {
+            document.querySelectorAll('.identity-detail .detail-value, .identity-name, .identity-username').forEach(el => {
+                el.innerHTML = '<div class="skeleton skeleton-text"></div>';
+                el.classList.add('skeleton');
+            });
+            elements.identityPhoto.src = 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 120 120"></svg>';
+            elements.identityPhoto.classList.add('skeleton');
+        }
+
+        function getFallbackIdentity() {
+            const firstNames = ["Alex", "Jamie", "Taylor", "Morgan", "Casey"];
+            const lastNames = ["Smith", "Johnson", "Brown", "Davis", "Wilson"];
+            const firstName = firstNames[Math.floor(Math.random() * firstNames.length)];
+            const lastName = lastNames[Math.floor(Math.random() * lastNames.length)];
+            const username = `${firstName.toLowerCase()}${lastName.toLowerCase()}${Math.floor(Math.random() * 99)}`;
+            
+            return {
+                name: { first: firstName, last: lastName },
+                login: { 
+                    username: username,
+                    password: Math.random().toString(36).substring(2, 10),
+                    uuid: Math.random().toString(36).substring(2, 15)
+                },
+                email: `${firstName.toLowerCase()}.${lastName.toLowerCase()}@example.com`,
+                phone: `+1${Math.floor(Math.random() * 900000000) + 100000000}`,
+                dob: { 
+                    age: Math.floor(Math.random() * 50) + 20,
+                    date: new Date(Date.now() - Math.random() * 60*365*24*60*60*1000).toISOString()
+                },
+                gender: Math.random() > 0.5 ? "male" : "female",
+                location: {
+                    city: ["New York", "Los Angeles", "Chicago", "Houston", "Phoenix"][Math.floor(Math.random() * 5)],
+                    country: "United States",
+                    state: ["NY", "CA", "IL", "TX", "AZ"][Math.floor(Math.random() * 5)],
+                    street: { number: Math.floor(Math.random() * 9999) + 1, name: "Main St" },
+                    postcode: Math.floor(Math.random() * 90000) + 10000
+                },
+                nat: "US",
+                registered: { date: new Date(Date.now() - Math.random() * 5*365*24*60*60*1000).toISOString() },
+                id: { name: "SSN", value: `${Math.floor(Math.random() * 900-99-9999)}` },
+                picture: { large: "https://randomuser.me/api/portraits/med/men/75.jpg" }
+            };
+        }
+
+        // =================================================================
+        // COPY FUNCTIONALITY
+        // =================================================================
+        function copyCurrentEmail() {
+            if (!state.currentEmail) {
+                showNotification('No email address to copy', 'error');
+                return;
+            }
+            copyToClipboard(state.currentEmail, 'Email address copied!');
+        }
+
+        function copyOTP() {
+            const otpBtn = elements.copyOTPBtn;
+            const otp = otpBtn.getAttribute('data-otp');
+            if (otp) {
+                copyToClipboard(otp, `OTP ${otp} copied!`);
+            } else {
+                showNotification('No OTP found in this email', 'error');
+            }
+        }
+
+        function copyIdentityDetails() {
+            if (!state.fakeIdentity) {
+                showNotification('No identity data to copy', 'error');
+                return;
+            }
+            const user = state.fakeIdentity;
+            const text = `Name: ${user.name.first} ${user.name.last}\nUsername: @${user.login.username}\nEmail: ${user.email}\nPhone: ${user.phone}\nAge: ${user.dob.age}\nGender: ${user.gender}\nLocation: ${user.location.city}, ${user.location.country}\nPassword: ${user.login.password}`;
+            copyToClipboard(text, 'Identity details copied!');
+        }
+
+        function copyToClipboard(text, message) {
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(text).then(() => {
+                    showNotification(message || 'Copied to clipboard!', 'success');
+                }).catch(err => {
+                    useFallbackCopy(text, message);
+                });
+            } else {
+                useFallbackCopy(text, message);
+            }
+        }
+
+        function useFallbackCopy(text, message) {
+            const textArea = document.createElement('textarea');
+            textArea.value = text;
+            document.body.appendChild(textArea);
+            textArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textArea);
+            showNotification(message || 'Copied to clipboard!', 'success');
+        }
+
+        // =================================================================
+        // OTHER APP FUNCTIONS
+        // =================================================================
+        function saveCurrentEmail() {
+            if (!state.currentEmailData) {
+                showNotification('No email to save', 'error');
+                return;
+            }
+            const savedEmails = JSON.parse(localStorage.getItem('tampmail_savedEmails') || '[]');
+            savedEmails.push({ 
+                ...state.currentEmailData, 
+                savedAt: new Date().toISOString(), 
+                originalEmail: state.currentEmail 
+            });
+            localStorage.setItem('tampmail_savedEmails', JSON.stringify(savedEmails));
+            showNotification('Email saved to local storage!', 'success');
+        }
+
+        function toggleUITheme() {
+            state.isGmailUI = !state.isGmailUI;
+            applyUITheme(); 
+            saveToStorage();
+        }
+
+        function applyUITheme() {
+            if (state.isGmailUI) {
+                document.body.classList.add('gmail-ui');
+                elements.themeIcon.className = 'fas fa-at';
+                elements.themeText.textContent = 'Tampmail UI';
+                showNotification('Switched to Gmail UI', 'success');
+            } else {
+                document.body.classList.remove('gmail-ui');
+                elements.themeIcon.className = 'fas fa-envelope';
+                elements.themeText.textContent = 'Gmail UI';
+                showNotification('Switched to Tampmail UI', 'success');
+            }
+        }
+
+        function showNotification(message, type = 'success') {
+            elements.copyMessage.textContent = message;
+            elements.copyFeedback.style.background = type === 'success' ? 'var(--success-color)' : 
+                                                    type === 'warning' ? 'var(--warning-color)' : 'var(--danger-color)';
+            elements.copyFeedback.classList.remove('hidden');
+            setTimeout(() => { 
+                elements.copyFeedback.classList.add('hidden'); 
+            }, 3000);
+        }
+
+        // =================================================================
+        // CLEANUP ON PAGE UNLOAD
+        // =================================================================
+        window.addEventListener('beforeunload', () => {
+            if (state.trafficSystem && state.trafficSystem.destroy) {
+                state.trafficSystem.destroy();
+            }
+        });
+
+        // Initialize the app
+        document.addEventListener('DOMContentLoaded', initApp);
+    </script>
+</body>
+</html>
