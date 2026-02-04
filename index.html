@@ -378,6 +378,17 @@
             background: rgba(245, 158, 11, 0.1);
             color: var(--warning-color);
         }
+   
+    /* PANEL DEFAULT: HIDDEN INSIDE */
+.system-status-panel {
+  transform: translateX(350px); /* panel andar */
+}
+
+/* USER ACTION KE BAAD HI SHOW HO */
+.system-status-panel.open {
+  transform: translateX(0);
+}
+    
     </style>
     
     <!-- EXISTING CSS REMAINS EXACTLY AS IS -->
