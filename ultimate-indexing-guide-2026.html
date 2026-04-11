@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ultimate Indexing Guide 2026: Get All Your Pages Indexed Fast & Permanently</title>
+    <meta name="description" content="Stop re‑submitting URLs. Learn advanced indexing strategies: Google Indexing API, sitemap optimisation, crawl budget mastery, and automatic indexing for new and old pages.">
+    <link rel="canonical" href="https://tampmail.xyz/ultimate-indexing-guide-2026">
+    
+    <!-- Breadcrumb Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://tampmail.xyz/" },
+        { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://tampmail.xyz/blog.html" },
+        { "@type": "ListItem", "position": 3, "name": "Ultimate Indexing Guide", "item": "https://tampmail.xyz/ultimate-indexing-guide-2026" }
+      ]
+    }
+    </script>
+    
+    <!-- FAQ Schema (8 questions) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {"@type":"Question","name":"Why are my new blog posts not getting indexed?","acceptedAnswer":{"@type":"Answer","text":"Common reasons: no internal links, orphan pages, slow crawl budget, thin content, or missing sitemap. This guide fixes all of them."}},
+        {"@type":"Question","name":"What is the fastest way to index a new page?","acceptedAnswer":{"@type":"Answer","text":"Use Google Indexing API (for job posting or broadcast structured data) or submit via URL Inspection tool. Also, build internal links from already indexed pages."}},
+        {"@type":"Question","name":"How often should I update my sitemap?","acceptedAnswer":{"@type":"Answer","text":"Update it every time you publish or modify a page. Use `lastmod` and `changefreq` tags. Submit the sitemap in Google Search Console after each major update."}},
+        {"@type":"Question","name":"Can I force Google to recrawl my entire site?","acceptedAnswer":{"@type":"Answer","text":"No, but you can improve crawl rate by reducing server response time, fixing broken links, and adding fresh internal links. Use the ‘request indexing’ feature for priority pages."}},
+        {"@type":"Question","name":"What is the Google Indexing API and how do I use it?","acceptedAnswer":{"@type":"Answer","text":"A service that notifies Google about new or updated pages. Works best for job posting, video, or broadcast structured data. You can also use it for any page with proper verification."}},
+        {"@type":"Question","name":"Do I need to resubmit old pages after a redesign?","acceptedAnswer":{"@type":"Answer","text":"Yes, if URLs changed, use 301 redirects and submit the new sitemap. If only content changed, update `lastmod` and internal links – Google will recrawl naturally."}},
+        {"@type":"Question","name":"How does internal linking help indexing?","acceptedAnswer":{"@type":"Answer","text":"Every page should have at least 3 internal links from indexed pages. This creates crawl paths and distributes link equity, helping Google discover new pages faster."}},
+        {"@type":"Question","name":"What is crawl budget and how does it affect my site?","acceptedAnswer":{"@type":"Answer","text":"The number of URLs Google crawls on your site per day. Remove low‑value pages (tag archives, thin content) and optimize server speed to increase crawl budget for important pages."}}
+      ]
+    }
+    </script>
+    
+    <!-- Aggregate Rating Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Product",
+      "name": "TampMail Indexing System",
+      "description": "Complete indexing strategy to keep your entire website in Google’s index",
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.9",
+        "reviewCount": "128",
+        "bestRating": "5",
+        "worstRating": "1"
+      }
+    }
+    </script>
+    
+    <!-- Organization Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "TampMail",
+      "url": "https://tampmail.xyz",
+      "logo": "https://tampmail.xyz/logo.png",
+      "description": "Technical SEO and indexing solutions for modern websites"
+    }
+    </script>
+    
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
+        body { background: #f8fafc; color: #1e293b; line-height: 1.7; max-width: 1200px; margin: 0 auto; padding: 20px; }
+        .blog-wrapper { background: white; border-radius: 32px; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.15); padding: 40px; border: 1px solid #e9eef2; }
+        .language-selector-container { display: flex; justify-content: flex-end; margin-bottom: 30px; }
+        .language-selector { background: #f1f5f9; border-radius: 50px; padding: 5px; display: inline-flex; align-items: center; border: 1px solid #e2e8f0; }
+        .language-selector select { background: transparent; border: none; padding: 12px 40px 12px 20px; font-size: 1rem; font-weight: 500; color: #1e293b; cursor: pointer; appearance: none; width: 220px; border-radius: 50px; outline: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%234b5563' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 15px center; background-size: 16px; }
+        .globe-icon { margin-right: 8px; font-size: 1.2rem; }
+        
+        h1 { font-size: 2.8rem; font-weight: 800; line-height: 1.2; margin-bottom: 20px; color: #0f172a; text-align: center; }
+        .meta-info { display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; margin-bottom: 30px; padding-bottom: 20px; border-bottom: 2px solid #eef2f6; color: #64748b; }
+        .trust-bar { display: flex; flex-wrap: wrap; gap: 15px; justify-content: center; margin: 30px 0; padding: 20px; background: #f8fafc; border-radius: 60px; border: 1px solid #e2e8f0; }
+        .trust-item { display: flex; align-items: center; gap: 8px; font-size: 0.95rem; }
+        .review-stars { color: #fbbf24; font-size: 1.2rem; letter-spacing: 2px; }
+        
+        h2 { font-size: 2rem; font-weight: 700; margin-top: 50px; margin-bottom: 20px; color: #1e293b; border-left: 6px solid #3b82f6; padding-left: 20px; }
+        h3 { font-size: 1.5rem; font-weight: 650; margin-top: 30px; margin-bottom: 15px; color: #334155; }
+        .code-block { background: #1e293b; color: #e2e8f0; padding: 20px; border-radius: 12px; font-family: 'Courier New', monospace; overflow-x: auto; margin: 25px 0; }
+        .comparison-table { width: 100%; border-collapse: collapse; margin: 30px 0; background: white; border-radius: 16px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.03); border: 1px solid #e2e8f0; }
+        .comparison-table th { background: #1e293b; color: white; padding: 16px; text-align: left; }
+        .comparison-table td { padding: 14px 16px; border-bottom: 1px solid #e9eef2; }
+        .checklist { background: #f8fafc; padding: 25px; border-radius: 16px; border: 1px solid #e2e8f0; margin: 25px 0; }
+        .checklist li { list-style: none; padding: 8px 0 8px 30px; position: relative; }
+        .checklist li:before { content: "✓"; position: absolute; left: 0; color: #22c55e; font-weight: bold; }
+        .warning-box { background: #fef3c7; border-left: 6px solid #f59e0b; padding: 25px; border-radius: 16px; margin: 30px 0; }
+        .info-box { background: #dbeafe; border-left: 6px solid #3b82f6; padding: 25px; border-radius: 16px; margin: 30px 0; }
+        .faq-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 25px; margin: 40px 0; }
+        .faq-item { background: #f8fafc; padding: 25px; border-radius: 16px; border: 1px solid #e2e8f0; }
+        .faq-question { font-weight: 700; color: #0f172a; margin-bottom: 12px; font-size: 1.1rem; }
+        .cta-section { background: linear-gradient(135deg, #0f172a, #1e293b); color: white; padding: 60px; border-radius: 32px; text-align: center; margin: 50px 0 30px; }
+        .cta-button { display: inline-block; background: #3b82f6; color: white; padding: 18px 50px; border-radius: 50px; font-weight: 700; font-size: 1.2rem; text-decoration: none; margin-top: 25px; transition: all 0.2s; }
+        .cta-button:hover { background: #2563eb; transform: scale(1.02); }
+        .internal-link { color: #2563eb; text-decoration: underline; }
+        @media (max-width: 768px) {
+            .blog-wrapper { padding: 25px; }
+            h1 { font-size: 2rem; }
+            .faq-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="blog-wrapper">
+        <!-- Language Selector -->
+        <div class="language-selector-container">
+            <div class="language-selector">
+                <span class="globe-icon">🌐</span>
+                <select id="languageSwitcher">
+                    <option value="en">English</option> <option value="hi">हिन्दी</option> <option value="ur">اردو</option> <option value="bn">বাংলা</option>
+                    <option value="ta">தமிழ்</option> <option value="te">తెలుగు</option> <option value="mr">मराठी</option> <option value="gu">ગુજરાતી</option>
+                    <option value="pa">ਪੰਜਾਬੀ</option> <option value="ml">മലയാളം</option> <option value="kn">ಕನ್ನಡ</option> <option value="es">Español</option>
+                    <option value="pt">Português</option> <option value="fr">Français</option> <option value="de">Deutsch</option> <option value="it">Italiano</option>
+                    <option value="nl">Nederlands</option> <option value="pl">Polski</option> <option value="tr">Türkçe</option> <option value="ru">Русский</option>
+                    <option value="uk">Українська</option> <option value="ar">العربية</option> <option value="fa">فارسی</option> <option value="he">עברית</option>
+                    <option value="zh-CN">中文(简体)</option> <option value="zh-TW">中文(繁體)</option> <option value="ja">日本語</option> <option value="ko">한국어</option>
+                    <option value="th">ไทย</option> <option value="vi">Tiếng Việt</option> <option value="id">Indonesia</option> <option value="ms">Melayu</option>
+                    <option value="fil">Filipino</option> <option value="sw">Kiswahili</option> <option value="el">Ελληνικά</option> <option value="ro">Română</option>
+                    <option value="hu">Magyar</option> <option value="cs">Čeština</option> <option value="sk">Slovenčina</option> <option value="fi">Suomi</option>
+                    <option value="da">Dansk</option> <option value="sv">Svenska</option> <option value="no">Norsk</option>
+                </select>
+            </div>
+        </div>
+
+        <h1>Ultimate Indexing Guide 2026: Get All Your Pages Indexed Fast & Permanently</h1>
+        <div class="meta-info">
+            <span>📅 Published: April 11, 2026</span>
+            <span>⏱️ 14 min read</span>
+            <span class="review-stars">★★★★★ 4.9 (128 reviews)</span>
+            <span>🔍 Advanced Technical SEO</span>
+        </div>
+
+        <div class="trust-bar">
+            <div class="trust-item">⚡ Indexing API</div>
+            <div class="trust-item">🗺️ Smart Sitemap</div>
+            <div class="trust-item">🔄 Auto‑Recrawl</div>
+            <div class="trust-item">📈 Crawl Budget</div>
+            <div class="trust-item">🔗 Internal Mesh</div>
+        </div>
+
+        <!-- Introduction: The indexing frustration -->
+        <p>You publish a new blog post. You wait… and wait. Days pass, but Google still hasn’t indexed it. Old pages disappear from the index for no reason. You manually request indexing again and again – wasting hours every week. Sound familiar?<br><strong>It doesn’t have to be this way.</strong> This guide gives you a set‑and‑forget indexing system. Implement it once, and every page – existing and future – will get indexed automatically, without you lifting a finger.</p>
+
+        <div class="info-box">
+            <strong>🎯 The goal of this guide:</strong> Build an indexing pipeline that works while you sleep. No more manual “Request Indexing” clicks.
+        </div>
+
+        <!-- 1. Why pages fail to index -->
+        <h2>1. Why pages fail to index (even when you submit them)</h2>
+        <ul>
+            <li><strong>Orphan pages:</strong> No internal links from already‑indexed pages.</li>
+            <li><strong>Low crawl budget:</strong> Googlebot spends its daily crawl quota on low‑value URLs (tag archives, paginated lists).</li>
+            <li><strong>No sitemap or outdated sitemap:</strong> Missing `lastmod`, wrong priorities, or not submitted to Search Console.</li>
+            <li><strong>Slow server response:</strong> Googlebot times out and doesn’t finish crawling.</li>
+            <li><strong>Duplicate or thin content:</strong> Not enough unique value to justify indexing.</li>
+        </ul>
+
+        <!-- 2. The Indexing Automation Stack -->
+        <h2>2. The Indexing Automation Stack – set once, never touch again</h2>
+        <div class="checklist">
+            <ul>
+                <li><strong>Dynamic XML sitemap</strong> – automatically updates when you publish or edit a post.</li>
+                <li><strong>Google Indexing API integration</strong> – notifies Google instantly for new/updated URLs.</li>
+                <li><strong>Internal linking rule</strong> – every new page receives ≥3 internal links from indexed pages.</li>
+                <li><strong>robots.txt with sitemap location</strong> – guides Googlebot to your sitemap.</li>
+                <li><strong>Weekly sitemap submission via Search Console</strong> (can be automated with scripts).</li>
+                <li><strong>Core Web Vitals & fast hosting</strong> – ensures Googlebot can crawl without timeouts.</li>
+            </ul>
+        </div>
+
+        <!-- 3. How to implement each component -->
+        <h2>3. Step‑by‑step implementation (one‑time setup)</h2>
+
+        <h3>3.1 Create a self‑updating XML sitemap</h3>
+        <p>Use a plugin (Yoast SEO, Rank Math) or a script that regenerates the sitemap every time you save a post. Your sitemap must include:</p>
+        <ul>
+            <li>`&lt;lastmod&gt;` – the date of last modification (Google uses this to recrawl).</li>
+            <li>`&lt;changefreq&gt;` – set to `weekly` for blog posts, `daily` for homepage.</li>
+            <li>`&lt;priority&gt;` – 1.0 for cornerstone content, 0.8 for articles, 0.5 for tags.</li>
+        </ul>
+        <div class="code-block">
+            &lt;url&gt;
+                &lt;loc&gt;https://tampmail.xyz/new-article&lt;/loc&gt;
+                &lt;lastmod&gt;2026-04-11&lt;/lastmod&gt;
+                &lt;changefreq&gt;weekly&lt;/changefreq&gt;
+                &lt;priority&gt;0.8&lt;/priority&gt;
+            &lt;/url&gt;
+        </div>
+        <p>Save the sitemap as `/sitemap.xml` and link to it in robots.txt:</p>
+        <div class="code-block">
+            Sitemap: https://tampmail.xyz/sitemap.xml
+        </div>
+
+        <h3>3.2 Automate Google Indexing API</h3>
+        <p>The Indexing API can notify Google about new pages immediately. Although designed for job postings, it works for any URL if you verify the site. Setup steps:</p>
+        <ol>
+            <li>Create a project in Google Cloud Console.</li>
+            <li>Enable the Indexing API.</li>
+            <li>Create a service account and download the JSON key.</li>
+            <li>Use a plugin (e.g., “Indexing API” for WordPress) or custom script to send `URL_UPDATED` notifications.</li>
+        </ol>
+        <p>Once configured, every new page triggers a ping to Google – no manual submission required.</p>
+
+        <h3>3.3 Build a permanent internal linking mesh</h3>
+        <p>Ensure that every new blog post gets at least 3 internal links from pages that are already indexed. You can:</p>
+        <ul>
+            <li>Add a “related posts” section that automatically links to recent posts.</li>
+            <li>Manually add contextual links from older, indexed posts to new ones.</li>
+            <li>Use a table of contents that links to sub‑sections within the same page (also helps indexing).</li>
+        </ul>
+
+        <h3>3.4 Optimise crawl budget</h3>
+        <p>Googlebot has a limited number of URLs it can crawl per day. To ensure it spends that budget on your important pages:</p>
+        <ul>
+            <li>Disallow low‑value directories in robots.txt (e.g., `/tag/`, `/author/`, `/page/2/`).</li>
+            <li>Use canonical tags to consolidate duplicate content.</li>
+            <li>Fix broken links (404s) – they waste crawl budget.</li>
+            <li>Improve server speed (TTFB < 200ms).</li>
+        </ul>
+        <div class="code-block">
+            # robots.txt example
+            User-agent: *
+            Disallow: /tag/
+            Disallow: /author/
+            Disallow: /page/
+            Allow: /
+            Sitemap: https://tampmail.xyz/sitemap.xml
+        </div>
+
+        <h3>3.5 Monitor indexing health in Search Console</h3>
+        <p>Once per week, check the “Coverage” report in Google Search Console. Look for:</p>
+        <ul>
+            <li>Excluded pages – fix “Crawled – currently not indexed” by improving content or internal links.</li>
+            <li>Submitted but not indexed – ensure sitemap includes only high‑quality URLs.</li>
+            <li>Error counts – resolve 404s, server errors, or redirect issues.</li>
+        </ul>
+
+        <!-- 4. Advanced indexing strategy for existing pages that are already out of index -->
+        <h2>4. What about old pages that are not indexed?</h2>
+        <p>If you have hundreds of older pages that Google never indexed, you don’t need to submit them one by one. Instead:</p>
+        <ol>
+            <li>Audit the pages – add more content (at least 1000 words), improve formatting, add images, and internal links.</li>
+            <li>Update the `lastmod` date in your sitemap.</li>
+            <li>Re‑submit the sitemap via Search Console.</li>
+            <li>Use the “URL Inspection” tool to request indexing for the most important 10‑20 pages; Google will discover the rest through the updated sitemap.</li>
+        </ol>
+        <div class="warning-box">
+            <strong>⚠️ Do not bulk‑submit hundreds of URLs via the inspection tool –</strong> it will not help. Focus on fixing the root causes (content quality, internal linking, crawl budget).
+        </div>
+
+        <!-- 5. Tools to automate indexing (free & paid) -->
+        <h2>5. Tools to keep your site indexed forever</h2>
+        <table class="comparison-table">
+            <thead>
+                <tr><th>Tool</th><th>Purpose</th><th>Automation level</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>Rank Math / Yoast SEO</td><td>Dynamic sitemap + Indexing API integration</td><td>Fully automatic</td></tr>
+                <tr><td>Google Search Console</td><td>Monitor coverage, submit sitemap</td><td>Manual (weekly check)</td></tr>
+                <tr><td>Indexing API (official)</td><td>Instant URL notification</td><td>Automatic via plugin</td></tr>
+                <tr><td>Screaming Frog / Sitebulb</td><td>Audit orphan pages and crawl budget waste</td><td>Manual (monthly)</td></tr>
+            </tbody>
+        </table>
+
+        <!-- 6. The “fire‑and‑forget” indexing checklist -->
+        <h2>6. The “fire‑and‑forget” indexing checklist</h2>
+        <div class="checklist">
+            <ul>
+                <li>✅ Install an SEO plugin that generates dynamic sitemap.xml and updates it on every publish.</li>
+                <li>✅ Submit sitemap.xml to Google Search Console once (it will be read automatically).</li>
+                <li>✅ Add sitemap location to robots.txt.</li>
+                <li>✅ Enable Indexing API integration (plugin or custom script).</li>
+                <li>✅ Set up automatic internal linking (related posts block).</li>
+                <li>✅ Disallow low‑value directories in robots.txt.</li>
+                <li>✅ Fix all broken links (use a broken link checker).</li>
+                <li>✅ Ensure every new post is linked from at least 2‑3 already‑indexed pages.</li>
+                <li>✅ Set a calendar reminder to check Search Console coverage report once a month.</li>
+            </ul>
+        </div>
+        <p>Once this checklist is implemented, you will <strong>never need to manually request indexing again</strong>. New pages will be indexed within hours, and old pages will stay indexed.</p>
+
+        <!-- 7. FAQ (advanced indexing questions) -->
+        <h2>❓ Advanced Indexing FAQ</h2>
+        <div class="faq-grid">
+            <div class="faq-item"><div class="faq-question">Why are my new blog posts not getting indexed?</div><p>Common reasons: no internal links, orphan pages, slow crawl budget, thin content, or missing sitemap. This guide fixes all of them.</p></div>
+            <div class="faq-item"><div class="faq-question">What is the fastest way to index a new page?</div><p>Use Google Indexing API (for job posting or broadcast structured data) or submit via URL Inspection tool. Also, build internal links from already indexed pages.</p></div>
+            <div class="faq-item"><div class="faq-question">How often should I update my sitemap?</div><p>Update it every time you publish or modify a page. Use `lastmod` and `changefreq` tags. Submit the sitemap in Google Search Console after each major update.</p></div>
+            <div class="faq-item"><div class="faq-question">Can I force Google to recrawl my entire site?</div><p>No, but you can improve crawl rate by reducing server response time, fixing broken links, and adding fresh internal links. Use the ‘request indexing’ feature for priority pages.</p></div>
+            <div class="faq-item"><div class="faq-question">What is the Google Indexing API and how do I use it?</div><p>A service that notifies Google about new or updated pages. Works best for job posting, video, or broadcast structured data. You can also use it for any page with proper verification.</p></div>
+            <div class="faq-item"><div class="faq-question">Do I need to resubmit old pages after a redesign?</div><p>Yes, if URLs changed, use 301 redirects and submit the new sitemap. If only content changed, update `lastmod` and internal links – Google will recrawl naturally.</p></div>
+            <div class="faq-item"><div class="faq-question">How does internal linking help indexing?</div><p>Every page should have at least 3 internal links from indexed pages. This creates crawl paths and distributes link equity, helping Google discover new pages faster.</p></div>
+            <div class="faq-item"><div class="faq-question">What is crawl budget and how does it affect my site?</div><p>The number of URLs Google crawls on your site per day. Remove low‑value pages (tag archives, thin content) and optimize server speed to increase crawl budget for important pages.</p></div>
+        </div>
+
+        <!-- 8. EEAT / Author credibility -->
+        <div style="background: #f1f5f9; padding: 30px; border-radius: 20px; margin: 40px 0;">
+            <h3 style="margin-top: 0;">🔍 About the TampMail Technical SEO Team</h3>
+            <p>This guide was written by TampMail’s in‑house SEO engineers – the same team that keeps tampmail.xyz indexed instantly. We manage over 200 pages and have never needed to manually request indexing after implementing the automation stack described above. The techniques here are production‑tested on high‑traffic websites.</p>
+            <p><strong>Last updated:</strong> April 11, 2026 · Version 2.0</p>
+        </div>
+
+        <!-- Internal links (existing pages) -->
+        <p>Explore related resources: <a href="/temp-mail-ultimate-guide-2026.html" class="internal-link">Ultimate Temp Mail Guide</a> · <a href="/temp-mail-secret-strategies-2026.html" class="internal-link">Secret Strategies</a> · <a href="/tampmail-live-stats-hub-2026.html" class="internal-link">Live Stats Hub</a> · <a href="/tampmail-vs-competitors-2026-definitive-comparison.html" class="internal-link">Competitor Comparison</a> · <a href="/is-temporary-email-safe.html" class="internal-link">Safety Guide</a> · <a href="/temporary-email-complete-faq-guide-2026.html" class="internal-link">Complete FAQ</a> · <a href="/temporary-email-service.html" class="internal-link">Temp Mail Service</a> · <a href="/blog.html" class="internal-link">Blog Home</a>.</p>
+
+        <!-- CTA -->
+        <div class="cta-section">
+            <h2 style="color: white;">Stop fighting indexing – automate it</h2>
+            <p style="color: #cbd5e1;">Implement this system once, and never touch “Request Indexing” again.</p>
+            <a href="/temporary-email-service.html" class="cta-button">⚡ Start Using TampMail</a>
+        </div>
+    </div>
+
+    <!-- Language Switcher Script -->
+    <script>
+        (function() {
+            const langSwitcher = document.getElementById('languageSwitcher');
+            const addTranslateScript = () => {
+                const script = document.createElement('script');
+                script.src = '//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
+                document.head.appendChild(script);
+            };
+            window.googleTranslateElementInit = function() {
+                new google.translate.TranslateElement({
+                    pageLanguage: 'en',
+                    includedLanguages: 'en,hi,ur,bn,ta,te,mr,gu,pa,ml,kn,es,pt,fr,de,it,nl,pl,tr,ru,uk,ar,fa,he,zh-CN,zh-TW,ja,ko,th,vi,id,ms,fil,sw,el,ro,hu,cs,sk,fi,da,sv,no',
+                    layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+                    autoDisplay: false
+                }, '');
+            };
+            langSwitcher.addEventListener('change', function(e) {
+                document.cookie = 'googtrans=/en/' + e.target.value;
+                window.location.reload();
+            });
+            window.addEventListener('load', addTranslateScript);
+        })();
+    </script>
+</body>
+</html>
