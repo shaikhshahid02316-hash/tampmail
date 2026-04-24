@@ -22,5 +22,21 @@
         <p>📧 Protect your privacy – <a href="/temporary-email-service.html">Create a free temporary email</a></p>
         <p><a href="/blog.html">← Back to blog</a></p>
     </div>
+<div id="related-posts"></div>
+<script>
+    // Map of URL patterns to related links (you can expand)
+    const relatedMap = {
+        'what-is-temporary-email': ['/how-temp-mail-works', '/why-use-temp-mail'],
+        'how-temp-mail-works': ['/what-is-temporary-email', '/do-temp-mails-expire'],
+        'create-temp-mail': ['/free-temp-mail', '/temp-mail-generator'],
+        'temp-mail-for-instagram': ['/temp-mail-for-facebook', '/temp-mail-for-chatgpt'],
+        // ... add mappings for all 89 pages? That's long.
+    };
+    // Fallback: show all pages from same category based on URL path
+    const path = window.location.pathname;
+    const category = path.split('/')[1]?.split('-')[0]; // rough
+    // Better: Use the topic cluster already present in the HTML (we can add a meta tag)
+</script>
+    
 </body>
 </html>
